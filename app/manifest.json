@@ -1,48 +1,42 @@
 {
-  "name": "__MSG_appName__",
-  "short_name": "__MSG_appShortName__",
-  "description": "__MSG_appDescription__",
-  "version": "0.0.0",
+  "content_security_policy": "script-src 'self' https://ru.aliexpress.com/ 'unsafe-eval'; object-src 'self'",
+  "name": "Buddy",
+  "short_name": "Buddy",
+  "description": "Helping people to live better",
+  "version": "0.0.1",
   "manifest_version": 2,
-  "default_locale": "en",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+    "16": "images/buddy-16x16.png",
+    "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": [
-      "scripts/background.js"
-    ]
+    "scripts": ["vendor/jquery.min.js"]
   },
   "browser_action": {
     "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
+      "19": "images/buddy-20x20.png",
+      "38": "images/buddy-20x20.png"
     },
-    "default_title": "__MSG_browserActionTitle__",
+    "default_title": "Buddy",
     "default_popup": "pages/popup.html"
   },
+  "author": "Glauro Quintão Juliani",
+  "content_scripts": [{
+    "js": ["vendor/jquery.min.js", "scripts/content.js"],
+    "css": ["style.css"],
+    "matches": ["http://*/*", "https://*/*"]
+  }],
   "permissions": [
-    "bookmarks",
-    "clipboardRead",
-    "clipboardWrite",
-    "commands",
-    "contentSettings",
-    "contextMenus",
-    "cookies",
-    "debugger",
-    "declarativeContent",
-    "history",
-    "management",
-    "notifications",
-    "pageCapture",
-    "proxy",
-    "tabCapture",
+    "activeTab",
     "tabs",
-    "topSites",
-    "webNavigation",
-    "webRequest",
-    "webRequestBlocking",
-    "<all_urls>"
+    "storage",
+    "background",
+    "clipboardWrite",
+    "clipboardRead",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": [
+    "vendor/bootstrap.min.css"
   ]
 }

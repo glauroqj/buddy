@@ -1,13 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title>Popup</title>
-  <link rel="stylesheet" type="text/css" href="../styles/popup.css">
 
+<head lang="pt-br">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="../vendor/jquery.min.js"></script>
+  <script src="../vendor/vue.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../vendor/bootstrap.min.css" />
 </head>
-<body>
-  <div id="app"></div>
+
+<body style="width: 600px">
+
+  <style>
+    .view-img {
+      cursor: pointer;
+      max-width: 50px;
+      max-height: 50px;
+      padding: 1px;
+    }
+
+    .sel-img {
+      padding: 0px;
+      border: 1px solid red;
+    }
+  </style>
+
+  <div class="container-fluid" id="buddy">
+    <h4>{{title}}</h4>
+  </div>
+
   <script src="../scripts/popup.js"></script>
 </body>
+
 </html>

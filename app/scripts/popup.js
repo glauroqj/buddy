@@ -1,10 +1,16 @@
-import Vue from 'vue';
-import App from '../component/app.vue';
-
-var app=new Vue({
-  el:'#app',
-  data:{
-    name:'vue-chrome-extension'
+new Vue({
+  name: 'Buddy',
+  el: '#buddy',
+  data: {
+    url: undefined,
+    title: 'Olá, fala pra gente? Como está seu dia?',
   },
-  render: h =>h(App)
-})
+
+  methods: {
+
+  },
+
+  mounted: function() {
+
+  }
+});
