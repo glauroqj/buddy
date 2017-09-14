@@ -5,12 +5,10 @@ new Vue({
     url: undefined,
     title: 'Olá, fala pra gente? Como está seu dia?',
   },
-
-  methods: {
+  mounted: function() {
 
   },
-
-  mounted: function() {
+  methods: {
 
   }
 });
