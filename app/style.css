@@ -2,3 +2,16 @@ html, body {
 	min-width: 330px;
 	width: 100%;
 }
+
+.box {
+
+}
+.box__list ul {
+
+}
+.box__list ul > li {
+
+}
+.box__list ul > li a {
+	font-size: 1.4em;
+}
