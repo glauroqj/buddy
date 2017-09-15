@@ -55,8 +55,8 @@ new Vue({
     send: function(value) {
       console.log(value)
       this.vote = true;
-      // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
-      Vue.ls.set('Buddy-Vote', value, 3600000);
+      Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
+      // Vue.ls.set('Buddy-Vote', value, 3600000);
     }
   }
 });
