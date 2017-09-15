@@ -12,6 +12,15 @@ html, body {
 .box__list ul > li {
 
 }
-.box__list ul > li a {
+.box__list ul.list-unstyled {
+	padding-top: 10px;
+}
+.box__list ul > li button {
 	font-size: 1.4em;
+	outline: none;
+}
+
+/* buttons */
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+	outline: none;
 }

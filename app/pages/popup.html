@@ -6,6 +6,7 @@
   <title>Buddy</title>
   <script src="../vendor/jquery.min.js"></script>
   <script src="../vendor/vue.min.js"></script>
+  <script src="../vendor/vue-ls.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../vendor/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../style.css" />
   <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -17,33 +18,102 @@
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
-            <div class="box__title">
-              <h4>{{title}}</h4>
-            </div>
+
             <div class="box__list">
-              <ul class="list-inline">
-                <li>
-                  <a href="" class="btn btn-default" value="1"><i class="fa fa-frown-o" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="" class="btn btn-default" value="2"><i class="fa fa-handshake-o" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="" class="btn btn-default" value="3"><i class="fa fa-meh-o" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="" class="btn btn-default" value="4"><i class="fa fa-hand-peace-o" aria-hidden="true"></i></a>
-                </li>
-                <li>
-                  <a href="" class="btn btn-default" value="5"><i class="fa fa-smile-o" aria-hidden="true"></i></a>
-                </li>
-              </ul>
-            </div>
-          </div> <!-- box -->
-        </div>
+              <template v-if="firstLogin == true">
+                <form v-on:submit.prevent>
+                  <ul class="list-unstyled">
+                    <li>
+                      <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">Empresa</label>
+                        <div class="col-lg-10">
+                          <input type="text" class="form-control" v-model="company" disabled>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                      <label for="inputEmail" class="col-lg-2 control-label">Matrícula</label>
+                        <div class="col-lg-10">
+                          <input type="text" class="form-control" v-model="registration" placeholder="Número do ponto eletrônico">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail" class="col-lg-2 control-label">Nome</label>
+                        <div class="col-lg-10">
+                          <input type="text" class="form-control" placeholder="Maria" v-model="name">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                       <label for="inputEmail" class="col-lg-2 control-label">Setor</label>
+                       <div class="col-lg-10">
+                        <select class="form-control" id="select" v-model="sector" placeholder="Escolha seu setor">
+                          <option disabled>Escolha seu setor</option>
+                          <option>Produto</option>
+                          <option>Suporte</option>
+                          <option>Marketing</option>
+                          <option>Op. Online</option>
+                          <option>Op. Local</option>
+                          <option>CS</option>
+                          <option>RH</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-lg-10">
+                        <button type="submit" class="btn btn-success btn-block btn-md" v-on:click="login">Salvar</button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </form>
+            </template>
+            <template v-else>
+
+              <template v-if="vote == false">
+                <div class="box__title">
+                  <h4>{{title}}</h4>
+                </div>
+                <form v-on:submit.prevent>
+                  <ul class="list-inline">
+                    <li>
+                      <button type="submit" class="btn btn-default" value="1" v-on:click="send(1)">
+                        <i class="fa fa-frown-o" aria-hidden="true"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="submit" class="btn btn-default" value="2" v-on:click="send(2)">
+                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="submit" class="btn btn-default" value="3" v-on:click="send(3)">
+                        <i class="fa fa-meh-o" aria-hidden="true"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="submit" class="btn btn-default" value="4" v-on:click="send(4)">
+                        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <button type="submit" class="btn btn-default" value="5" v-on:click="send(5)">
+                        <i class="fa fa-smile-o" aria-hidden="true"></i>
+                      </button>
+                    </li>
+                  </ul>
+                </form> <!-- form -->
+              </template>
+              <template v-else>
+                <div class="box__title"><h4>Obrigado pelo feedback! <i class="fa fa-check" aria-hidden="true"></i></h4></div>
+              </template>
+
+            </template> <!-- v-else -->
+
+          </div> <!-- box__list -->
+        </div> <!-- box -->
       </div>
-    </div> <!-- container -->
-  </div> <!-- buddy -->
-  <script src="../scripts/popup.js"></script>
+    </div>
+  </div> <!-- container -->
+</div> <!-- buddy -->
+<script src="../scripts/popup.js"></script>
 </body>
 </html>
