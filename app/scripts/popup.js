@@ -36,6 +36,7 @@ new Vue({
     } else {
       this.vote = true;
     }
+    this.verifyVote()
   },
   methods: {
     reset: function() {
@@ -57,6 +58,24 @@ new Vue({
       this.vote = true;
       Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
       // Vue.ls.set('Buddy-Vote', value, 3600000);
+    },
+    verifyVote: function() {
+      console.log('verifyVote called')
+      setInterval(function() {
+
+        chrome.tabs.create({
+          url: chrome.extension.getURL('pages/popup.html'),
+          active: true
+        }, function(tab) {
+            // chrome.windows.create({
+            //     tabId: tab.id,
+            //     type: 'popup',
+            //     focused: true
+            //     // incognito, top, left, ...
+            // });
+          });
+        
+      }, 3600000);
     }
   }
 });
