@@ -31,6 +31,8 @@
     "activeTab",
     "tabs",
     "storage",
+    "alarms",
+    "notifications",
     "background",
     "clipboardWrite",
     "clipboardRead",

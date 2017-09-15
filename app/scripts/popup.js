@@ -60,9 +60,30 @@ new Vue({
       // Vue.ls.set('Buddy-Vote', value, 3600000);
     },
     verifyVote: function() {
-      console.log('verifyVote called')
+      var vm = this;
       setInterval(function() {
+        // alert('verifyVote')
 
+        if (!('Notification' in window)) {
+          alert('This browser does not support desktop notification');
+        }
+        else if (Notification.permission === 'granted') {
+          var notification = new Notification('Olá, conta pra gente como está seu dia?');
+          vm.voteAgain();
+        }
+        else if (Notification.permission !== 'denied') {
+          Notification.requestPermission(function (permission) {
+            if (permission === 'granted') {
+              var notification = new Notification('Olá, conta pra gente como está seu dia?');
+              vm.voteAgain();
+            }
+          });
+        }
+
+      }, 8000); /* 3600000 1hour */
+    },
+    voteAgain: function() {
+      if ( this.voted === '' || this.voted === null ) {
         chrome.tabs.create({
           url: chrome.extension.getURL('pages/popup.html'),
           active: true
@@ -74,8 +95,9 @@ new Vue({
             //     // incognito, top, left, ...
             // });
           });
-        
-      }, 3600000);
+      } else {
+
+      }
     }
   }
 });
