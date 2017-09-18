@@ -10,8 +10,8 @@
     "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": ["vendor/jquery.min.js"],
-    "persistent": false
+    "scripts": ["scripts/background.js", "vendor/jquery.min.js"],
+    "persistent": true
   },
   "browser_action": {
     "default_icon": {

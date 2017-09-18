@@ -56,45 +56,51 @@ new Vue({
     send: function(value) {
       console.log(value)
       this.vote = true;
-      Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
+      Vue.ls.set('Buddy-Vote', value, 3600000);
+      // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
       // Vue.ls.set('Buddy-Vote', value, 3600000);
     },
     verifyVote: function() {
       var vm = this;
-      setInterval(function() {
-        // alert('verifyVote')
+      // setInterval(function() {
+      //   // alert('verifyVote')
 
-        if (!('Notification' in window)) {
-          alert('This browser does not support desktop notification');
-        }
-        else if (Notification.permission === 'granted') {
-          var notification = new Notification('Olá, conta pra gente como está seu dia?');
-          vm.voteAgain();
-        }
-        else if (Notification.permission !== 'denied') {
-          Notification.requestPermission(function (permission) {
-            if (permission === 'granted') {
-              var notification = new Notification('Olá, conta pra gente como está seu dia?');
-              vm.voteAgain();
-            }
-          });
-        }
+      //   // if (!('Notification' in window)) {
+      //   //   alert('This browser does not support desktop notification');
+      //   // }
+      //   // else if (Notification.permission === 'granted') {
+      //   //   var notification = new Notification('Olá, conta pra gente como está seu dia?');
+      //   //   vm.voteAgain();
+      //   // }
+      //   // else if (Notification.permission !== 'denied') {
+      //   //   Notification.requestPermission(function (permission) {
+      //   //     if (permission === 'granted') {
+      //   //       var notification = new Notification('Olá, conta pra gente como está seu dia?');
+      //   //       vm.voteAgain();
+      //   //     }
+      //   //   });
+      //   // }
 
-      }, 8000); /* 3600000 1hour */
+      // }, 8000); /* 3600000 1hour */
     },
     voteAgain: function() {
       if ( this.voted === '' || this.voted === null ) {
-        chrome.tabs.create({
-          url: chrome.extension.getURL('pages/popup.html'),
-          active: true
-        }, function(tab) {
-            // chrome.windows.create({
-            //     tabId: tab.id,
-            //     type: 'popup',
-            //     focused: true
-            //     // incognito, top, left, ...
-            // });
-          });
+
+        // chrome.browserAction.setPopup({
+        //   popup: chrome.extension.getURL('pages/popup.html')
+        // })
+
+        // chrome.tabs.create({
+        //   url: chrome.extension.getURL('pages/popup.html'),
+        //   active: true
+        // }, function(tab) {
+        //     // chrome.windows.create({
+        //     //     tabId: tab.id,
+        //     //     type: 'popup',
+        //     //     focused: true
+        //     //     // incognito, top, left, ...
+        //     // });
+        //   });
       } else {
 
       }
