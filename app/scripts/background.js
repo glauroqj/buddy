@@ -1,54 +1,52 @@
-/* verify localstorage */
-function verifyVote() {
-	setInterval(function() {
-		Cookies.remove('Buddy-Vote');
-		let login = '';
-		let vote = '';
-		login = Cookies.get('Buddy-Login');
-		vote = Cookies.get('Buddy-Vote');
+/* verify vote */
+setInterval(function() {
+	Cookies.remove('Buddy-Vote');
+	let login = '';
+	let vote = '';
+	login = Cookies.get('Buddy-Login');
+	vote = Cookies.get('Buddy-Vote');
 
-		if ( login === '' || login === null || login === undefined ) {
+	if ( login === '' || login === null || login === undefined ) {
 
-			if (!('Notification' in window)) {
-				alert('This browser does not support desktop notification');
-			}
-			else if (Notification.permission === 'granted') {
-				var notification = new Notification('Olá, faça login por favor!');
-				voteAgain();
-			}
-			else if (Notification.permission !== 'denied') {
-				Notification.requestPermission(function (permission) {
-					if (permission === 'granted') {
-						var notification = new Notification('Olá, faça login por favor!');
-						voteAgain();
-					}
-				});
-			}
-
-		} else if ( vote === '' || vote === null || vote === undefined ) {
-
-			if (!('Notification' in window)) {
-				alert('This browser does not support desktop notification');
-			}
-			else if (Notification.permission === 'granted') {
-				var notification = new Notification('Olá, como está seu dia hoje?');
-				voteAgain();
-			}
-			else if (Notification.permission !== 'denied') {
-				Notification.requestPermission(function (permission) {
-					if (permission === 'granted') {
-						var notification = new Notification('Olá, como está seu dia hoje?');
-						voteAgain();
-					}
-				});
-			}
-
-		} else {
-
+		if (!('Notification' in window)) {
+			alert('This browser does not support desktop notification');
+		}
+		else if (Notification.permission === 'granted') {
+			var notification = new Notification('Olá, faça login por favor!');
+			voteAgain();
+		}
+		else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function (permission) {
+				if (permission === 'granted') {
+					var notification = new Notification('Olá, faça login por favor!');
+					voteAgain();
+				}
+			});
 		}
 
-	}, 360000); /* 3600000 1hour */
-}
+	} else if ( vote === '' || vote === null || vote === undefined ) {
+
+		if (!('Notification' in window)) {
+			alert('This browser does not support desktop notification');
+		}
+		else if (Notification.permission === 'granted') {
+			var notification = new Notification('Olá, como está seu dia hoje?');
+			voteAgain();
+		}
+		else if (Notification.permission !== 'denied') {
+			Notification.requestPermission(function (permission) {
+				if (permission === 'granted') {
+					var notification = new Notification('Olá, como está seu dia hoje?');
+					voteAgain();
+				}
+			});
+		}
+
+	} else {
+
+	}
+
+}, 86400000); /* 3600000 1hour */
 
 function voteAgain() {
 

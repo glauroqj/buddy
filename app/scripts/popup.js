@@ -70,8 +70,8 @@
       // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
       // Vue.ls.set('Buddy-Vote', value, 5000);
       Cookies.set('Buddy-Vote', value, {expire: 1});
-      let bgJS = chrome.extension.getBackgroundPage();
-      bgJS.verifyVote();
+      // let bgJS = chrome.extension.getBackgroundPage();
+      // bgJS.verifyVote();
     }
   }
 });
