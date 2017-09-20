@@ -47,7 +47,7 @@ function verifyVote() {
 
 		}
 
-	}, 3600000); /* 3600000 1hour */
+	}, 360000); /* 3600000 1hour */
 }
 
 function voteAgain() {

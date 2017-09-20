@@ -23,7 +23,7 @@
   },
   "author": "Glauro Quintão Juliani",
   "content_scripts": [{
-    "js": ["vendor/jquery.min.js", "vendor/cookies.js", "scripts/content.js" ,"scripts/popup.js"],
+    "js": ["vendor/jquery.min.js", "vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/cookies.js", "scripts/content.js" ,"scripts/popup.js"],
     "css": ["style.css"],
     "matches": ["http://*/*", "https://*/*"]
   }],

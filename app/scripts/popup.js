@@ -1,10 +1,11 @@
-options = {
-  namespace: 'vuejs__'
-};
-
-Vue.use(VueLocalStorage, options);
-
 (function () {
+
+  options = {
+    namespace: 'vuejs__'
+  };
+
+  Vue.use(VueLocalStorage, options);
+
 
   new Vue({
     name: 'Buddy',
