@@ -43,7 +43,6 @@ Vue.use(VueLocalStorage, options);
       } else {
         this.vote = true;
       }
-      this.verifyVote()
     },
     methods: {
       reset: function() {
@@ -60,6 +59,8 @@ Vue.use(VueLocalStorage, options);
         // Vue.ls.set('Buddy-Login', info, 60 * 60 * 100000);
         Cookies.set('Buddy-Login', info, {expire: 365});
         this.firstLogin = false;
+        this.user = JSON.parse(Cookies.get('Buddy-Login'));        
+        this.title = this.user.name;
       },
       send: function(value) {
         console.log(value)
