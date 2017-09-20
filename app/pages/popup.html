@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <title>Buddy</title>
   <script src="../vendor/jquery.min.js"></script>
+  <script src="../vendor/cookies.js"></script>
   <script src="../vendor/vue.min.js"></script>
   <script src="../vendor/vue-ls.min.js"></script>
   <link rel="stylesheet" type="text/css" href="../vendor/bootstrap.min.css" />
@@ -21,86 +22,82 @@
 
             <div class="box__list">
               <template v-if="firstLogin == true">
-                <form v-on:submit.prevent>
-                  <ul class="list-unstyled">
-                    <li>
-                      <div class="form-group">
-                        <label for="inputEmail" class="col-lg-2 control-label">Empresa</label>
-                        <div class="col-lg-10">
-                          <input type="text" class="form-control" v-model="company" disabled>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                      <label for="inputEmail" class="col-lg-2 control-label">Matrícula</label>
-                        <div class="col-lg-10">
-                          <input type="text" class="form-control" v-model="registration" placeholder="Número do ponto eletrônico">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputEmail" class="col-lg-2 control-label">Nome</label>
-                        <div class="col-lg-10">
-                          <input type="text" class="form-control" placeholder="Maria" v-model="name">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                       <label for="inputEmail" class="col-lg-2 control-label">Setor</label>
-                       <div class="col-lg-10">
-                        <select class="form-control" id="select" v-model="sector" placeholder="Escolha seu setor">
-                          <option disabled>Escolha seu setor</option>
-                          <option>Produto</option>
-                          <option>Suporte</option>
-                          <option>Marketing</option>
-                          <option>Op. Online</option>
-                          <option>Op. Local</option>
-                          <option>CS</option>
-                          <option>RH</option>
-                        </select>
+                <ul class="list-unstyled">
+                  <li>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-lg-2 control-label">Empresa</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" v-model="company" disabled>
                       </div>
                     </div>
                     <div class="form-group">
+                      <label for="inputEmail" class="col-lg-2 control-label">Matrícula</label>
                       <div class="col-lg-10">
-                        <button type="submit" class="btn btn-success btn-block btn-md" v-on:click="login">Salvar</button>
+                        <input type="text" class="form-control" v-model="registration" placeholder="Número do ponto eletrônico">
                       </div>
                     </div>
-                  </li>
-                </ul>
-              </form>
+                    <div class="form-group">
+                      <label for="inputEmail" class="col-lg-2 control-label">Nome</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" placeholder="Maria" v-model="name">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                     <label for="inputEmail" class="col-lg-2 control-label">Setor</label>
+                     <div class="col-lg-10">
+                      <select class="form-control" id="select" v-model="sector" placeholder="Escolha seu setor">
+                        <option disabled>Escolha seu setor</option>
+                        <option>Produto</option>
+                        <option>Suporte</option>
+                        <option>Marketing</option>
+                        <option>Op. Online</option>
+                        <option>Op. Local</option>
+                        <option>CS</option>
+                        <option>RH</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-lg-10">
+                      <button type="button" class="btn btn-success btn-block btn-md" v-on:click="login">Salvar</button>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </template>
             <template v-else>
 
               <template v-if="vote == false">
                 <div class="box__title">
-                  <h4>{{title}}</h4>
+                  <h4>Olá <b>{{title}}</b>, Como está seu dia?</h4>
                 </div>
-                <form v-on:submit.prevent>
-                  <ul class="list-inline">
-                    <li>
-                      <button type="submit" class="btn btn-default" value="1" v-on:click="send(1)">
-                        <i class="fa fa-frown-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="submit" class="btn btn-default" value="2" v-on:click="send(2)">
-                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="submit" class="btn btn-default" value="3" v-on:click="send(3)">
-                        <i class="fa fa-meh-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="submit" class="btn btn-default" value="4" v-on:click="send(4)">
-                        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="submit" class="btn btn-default" value="5" v-on:click="send(5)">
-                        <i class="fa fa-smile-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </form> <!-- form -->
+                <ul class="list-inline">
+                  <li>
+                    <button type="button" class="btn btn-default" value="1" v-on:click="send(1)">
+                      <i class="fa fa-frown-o" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-default" value="2" v-on:click="send(2)">
+                      <i class="fa fa-handshake-o" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-default" value="3" v-on:click="send(3)">
+                      <i class="fa fa-meh-o" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-default" value="4" v-on:click="send(4)">
+                      <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-default" value="5" v-on:click="send(5)">
+                      <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    </button>
+                  </li>
+                </ul>
               </template>
               <template v-else> <!-- vote == true -->
                 <div class="box__title"><h4>Obrigado pelo feedback! Linda(o) <i class="fa fa-heart" aria-hidden="true"></i></h4></div>
