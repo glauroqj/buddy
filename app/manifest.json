@@ -1,5 +1,5 @@
 {
-  "content_security_policy": "script-src 'self' https://ru.aliexpress.com/ 'unsafe-eval'; object-src 'self'",
+  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
   "name": "Buddy",
   "short_name": "Buddy",
   "description": "Helping people to live better",
@@ -10,7 +10,11 @@
     "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": ["scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
+    "scripts": [
+      "scripts/background.js", 
+      "vendor/jquery.min.js", 
+      "vendor/cookies.js", 
+      "vendor/moment.js"],
     "persistent": true
   },
   "browser_action": {
@@ -23,11 +27,21 @@
   },
   "author": "Glauro Quintão Juliani",
   "content_scripts": [{
-    "js": ["vendor/jquery.min.js", "vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/cookies.js", "scripts/content.js" ,"scripts/popup.js"],
+    "js": [
+      "vendor/jquery.min.js", 
+      "vendor/vue.min.js", 
+      "vendor/vue-ls.min.js", 
+      "vendor/cookies.js", 
+      "scripts/content.js", 
+      "vendor/moment.js", 
+      "scripts/popup.js"
+    ],
     "css": ["style.css"],
     "matches": ["http://*/*", "https://*/*"]
   }],
   "permissions": [
+    "identity",
+    "identity.email",
     "activeTab",
     "tabs",
     "storage",
@@ -37,6 +51,7 @@
     "background",
     "clipboardWrite",
     "clipboardRead",
+    "webRequest",
     "http://*/*",
     "https://*/*"
   ],
