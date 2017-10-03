@@ -1,61 +1,55 @@
 {
-  "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'",
-  "name": "Buddy",
-  "short_name": "Buddy",
-  "description": "Helping people to live better",
-  "version": "0.0.1",
-  "manifest_version": 2,
-  "icons": {
-    "16": "images/buddy-16x16.png",
-    "128": "images/buddy-128x128.png"
-  },
-  "background": {
-    "scripts": [
-      "scripts/background.js", 
-      "vendor/jquery.min.js", 
-      "vendor/cookies.js", 
-      "vendor/moment.js"],
-    "persistent": true
-  },
-  "browser_action": {
-    "default_icon": {
-      "19": "images/buddy-20x20.png",
-      "38": "images/buddy-20x20.png"
-    },
-    "default_title": "Buddy",
-    "default_popup": "pages/popup.html"
-  },
-  "author": "Glauro Quintão Juliani",
-  "content_scripts": [{
-    "js": [
-      "vendor/jquery.min.js", 
-      "vendor/vue.min.js", 
-      "vendor/vue-ls.min.js", 
-      "vendor/cookies.js", 
-      "scripts/content.js", 
-      "vendor/moment.js", 
-      "scripts/popup.js"
-    ],
-    "css": ["style.css"],
-    "matches": ["http://*/*", "https://*/*"]
-  }],
-  "permissions": [
-    "identity",
-    "identity.email",
-    "activeTab",
-    "tabs",
-    "storage",
-    "cookies",
-    "alarms",
-    "notifications",
-    "background",
-    "clipboardWrite",
-    "clipboardRead",
-    "webRequest",
-    "http://*/*",
-    "https://*/*"
-  ],
-  "web_accessible_resources": [
-    "vendor/bootstrap.min.css"
-  ]
+"content_security_policy": "script-src 'self' https://ru.aliexpress.com/ 'unsafe-eval'; object-src 'self'","name": "Buddy",
+"short_name": "Buddy",
+"description": "Helping people to live better",
+"version": "0.0.1",
+"manifest_version": 2,
+"icons": {
+"16": "images/buddy-16x16.png",
+"128": "images/buddy-128x128.png"
+},
+"background": {
+"scripts": ["scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
+"persistent": true
+},
+"browser_action": {
+"default_icon": {
+"19": "images/buddy-20x20.png",
+"38": "images/buddy-20x20.png"
+},
+"default_title": "Buddy",
+"default_popup": "pages/popup.html"
+},
+"author": "Glauro Quintão Juliani",
+"content_scripts": [
+{
+"js": ["vendor/jquery.min.js", "vendor/firebasev4.4.0.js", "vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/cookies.js", "scripts/content.js", "vendor/moment.js", "scripts/popup.js"],
+"css": [
+"style.css"
+],
+"matches": [
+"http://*/*",
+"https://*/*"
+]
+}
+],
+"permissions": [
+"identity",
+"identity.email",
+"activeTab",
+"tabs",
+"storage",
+"cookies",
+"alarms",
+"notifications",
+"background",
+"clipboardWrite",
+"clipboardRead",
+"webRequest",
+"http://*/*",
+"https://*/*"
+],
+"web_accessible_resources": [
+"vendor/bootstrap.min.css"
+]
 }
