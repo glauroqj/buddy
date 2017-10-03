@@ -10,14 +10,11 @@
   };
   firebase.initializeApp(config);
 
-  console.log(config)
-
   options = {
     namespace: 'vuejs__'
   };
 
   Vue.use(VueLocalStorage, options);
-
 
   new Vue({
     name: 'Buddy',
@@ -31,7 +28,8 @@
       company: 'Sympla',
       registration: '',
       name: '',
-      sector: ''
+      sector: '',
+      loading: false,
     },
     mounted() {
       var vm = this;
@@ -56,6 +54,7 @@
       } else {
         this.vote = true;
       }
+
     },
     methods: {
       reset: function() {
@@ -76,12 +75,39 @@
         this.title = this.user.name;
       },
       send: function(value) {
-        console.log(value)
+        var vm = this;
+        
         this.vote = true;
+        let date = moment().format('DD-MM-YYYY');
+        let month = moment().format('MMM');
+        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+date+'/vote.json';
+        let data = {
+          'vote': value
+        }
+        this.loading = true;
+        $.ajax({
+          url: urlSend,
+          method: 'POST',
+          dataType: 'json',
+          data: JSON.stringify(data)
+        })
+        .done(function(data) {
+          console.log('success', data) 
+          setTimeout(function() {
+            vm.loading = false;
+          }, 800)
+        })
+        .fail(function(xhr) {
+          console.log('error', xhr);
+          setTimeout(function() {
+            vm.loading = false;
+          }, 800)
+        });
+        Cookies.set('Buddy-Vote', value, {expire: 1});
+
       // Vue.ls.set('Buddy-Vote', value, 3600000);
       // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
       // Vue.ls.set('Buddy-Vote', value, 5000);
-      Cookies.set('Buddy-Vote', value, {expire: 1});
       // let bgJS = chrome.extension.getBackgroundPage();
       // bgJS.verifyVote();
     }
