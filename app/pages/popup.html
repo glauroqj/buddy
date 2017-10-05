@@ -103,7 +103,10 @@
                   </ul>
                 </template>
                 <template v-else> <!-- vote == true -->
-                  <div class="box__title"><h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4></div>
+                  <div class="box__title">
+                    <h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4>
+                    <span class="box__lastvote">Último voto: {{lastVote.day}}</span>
+                  </div>
                 </template>
               </template> <!-- v-else -->
             </template>

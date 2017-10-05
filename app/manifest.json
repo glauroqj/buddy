@@ -2,14 +2,14 @@
   "content_security_policy": "script-src 'self' https://ru.aliexpress.com/ 'unsafe-eval'; object-src 'self'","name": "Buddy",
   "short_name": "Buddy",
   "description": "Helping people to live better",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "icons": {
     "16": "images/buddy-16x16.png",
     "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": ["vendor/moment.js", "scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
+    "scripts": ["vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/moment.js", "scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
     "persistent": true
   },
   "browser_action": {

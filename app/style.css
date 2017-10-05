@@ -20,6 +20,11 @@ html, body {
 	outline: none;
 }
 
+.box__lastvote {
+	font-size: 12px;
+	color: #cecece;
+}
+
 /* buttons */
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
 	outline: none;

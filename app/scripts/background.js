@@ -1,31 +1,45 @@
 (function () {
 	/* verify vote */
 	setInterval(function() {
-	// alert('TESTE')
+	
+	let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
 	let date = moment().format('DD/MM/YYYY');
 	let day = moment().format('dddd');
 	let month = moment().format('MMM');
 
 	/* verify is valid day of week */
-	if( day != 'Saturday' && day != 'Sunday' ) {
+	if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
 
-		Cookies.remove('Buddy-Vote');
-		let login = '';
+		// /* verify cookies */
+		// Cookies.remove('Buddy-Vote');
+		// let login = '';
+		// let vote = '';
+		// login = Cookies.get('Buddy-Login');
+		// vote = Cookies.get('Buddy-Vote');
+
+		//  verify localstorage 
+		// Vue.ls.remove('Buddy-Vote');
+		// let loginLS = '';
+		// let voteLS = '';
+		// loginLS = Vue.ls.get('Buddy-Login');
+		// voteLS = Vue.ls.get('Buddy-Vote');
+
+		localStorage.removeItem('Buddy-Vote');
 		let vote = '';
-		login = Cookies.get('Buddy-Login');
-		vote = Cookies.get('Buddy-Vote');
+		login = localStorage.getItem('Buddy-Login');
+		vote = localStorage.getItem('Buddy-Vote');
 
 		resetVote(login, vote);
 	} /* verify is valid day of week */
 
-}, 86400000); 
+}, 15000); 
 
 /* 
 3600000 1hour 
 86400000 24hours
 */
 
-function resetVote(login, vote) {
+function resetVote(login, vote, loginLS, voteLS) {
 	if ( login === '' || login === null || login === undefined ) {
 
 		if (!('Notification' in window)) {
