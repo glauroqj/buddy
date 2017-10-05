@@ -6,7 +6,7 @@
 	let date = moment().format('DD/MM/YYYY');
 	let day = moment().format('dddd');
 	let month = moment().format('MMM');
-
+	
 	/* verify is valid day of week */
 	if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
 
@@ -20,7 +20,7 @@
 		resetVote(login, vote);
 	} /* verify is valid day of week */
 
-}, 15000); 
+}, 3600000); 
 
 /* 
 3600000 1hour 

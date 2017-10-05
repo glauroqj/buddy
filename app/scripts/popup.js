@@ -26,19 +26,19 @@
       lastVote: '',
       loading: false,
     },
-    watch: {
+    computed: {
 
     },
     mounted() {
       var vm = this;
       this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
-      console.log(this.lastVote)
       /* verify first login on buddy */
       // this.user = Vue.ls.get('Buddy-Login');
       // this.user = Cookies.get('Buddy-Login');
-      this.user = localStorage.getItem('Buddy-Login');
+      this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
 
-      // console.log( this.user )
+      console.log( this.user, this.lastVote )
+
       if ( this.user === '' || this.user === null || this.user === undefined ) {
         this.firstLogin = true;
       } else {
@@ -117,6 +117,7 @@
         });
         localStorage.setItem('Buddy-Vote', JSON.stringify(data) );
         localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
+        this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
         /* create cookie and localstorage */
         
 
