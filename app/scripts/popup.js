@@ -37,7 +37,7 @@
       // this.user = Cookies.get('Buddy-Login');
       this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
 
-      console.log( this.user, this.lastVote )
+      // console.log( this.user, this.lastVote )
 
       if ( this.user === '' || this.user === null || this.user === undefined ) {
         this.firstLogin = true;
@@ -95,7 +95,6 @@
         let lastVote = {
           'day': dateFormat
         };
-        console.log(lastVote)
         this.loading = true;
         $.ajax({
           url: urlSend,
