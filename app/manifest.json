@@ -9,7 +9,7 @@
     "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": ["vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/moment.js", "scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
+    "scripts": ["vendor/vue.min.js", "vendor/moment.js", "scripts/background.js", "vendor/jquery.min.js", "vendor/cookies.js"],
     "persistent": true
   },
   "browser_action": {
@@ -23,7 +23,7 @@
   "author": "Glauro Quintão Juliani",
   "content_scripts": [
     {
-      "js": ["vendor/jquery.min.js", "vendor/firebasev4.4.0.js", "vendor/vue.min.js", "vendor/vue-ls.min.js", "vendor/cookies.js", "scripts/content.js", "vendor/moment.js", "scripts/popup.js"],
+      "js": ["vendor/jquery.min.js", "vendor/firebasev4.4.0.js", "vendor/vue.min.js", "vendor/cookies.js", "scripts/content.js", "vendor/moment.js", "scripts/popup.js"],
       "css": [
         "style.css"
       ],

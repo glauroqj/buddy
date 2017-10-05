@@ -10,12 +10,6 @@
   };
   firebase.initializeApp(config);
 
-  options = {
-    namespace: 'vuejs__'
-  };
-
-  Vue.use(VueLocalStorage, options);
-
   new Vue({
     name: 'Buddy',
     el: '#buddy',
@@ -31,6 +25,9 @@
       sector: '',
       lastVote: '',
       loading: false,
+    },
+    watch: {
+
     },
     mounted() {
       var vm = this;
