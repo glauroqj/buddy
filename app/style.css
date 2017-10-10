@@ -1,6 +1,11 @@
 html, body {
-	min-width: 330px;
+	min-width: 500px;
 	width: 100%;
+	color: #ABB7B7;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 
 .box {
@@ -16,15 +21,46 @@ html, body {
 	padding-top: 10px;
 }
 .box__list ul > li button {
-	font-size: 1.4em;
+	font-size: 0.8em;
 	outline: none;
 }
-
+.box__title h4 {
+	color: #6C7A89;
+}
 .box__lastvote {
 	font-size: 12px;
 	color: #cecece;
 }
+.box__buttons {
 
+}
+.box__buttons__btn-vote {
+	color:  #ABB7B7;
+}
+.box__buttons__btn-vote:hover {
+	text-decoration: none;
+	color: #6C7A89;
+}
+.box__buttons__btn-vote:hover .box__buttons__btn-vote_img {
+	padding-bottom: 5px;
+}
+.box__buttons__btn-vote_img {
+	width: auto;
+	height: 30px;
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
+.box__buttons__btn-vote:hover .box__buttons__btn-vote_text {
+	margin-top: 4px;
+}
+.box__buttons__btn-vote_text {
+	font-weight: 600;
+	margin-top: 5px;
+	letter-spacing: 0.9px;
+	height: 15px;
+}
 /* buttons */
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
 	outline: none;

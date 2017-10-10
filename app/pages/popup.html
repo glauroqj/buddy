@@ -79,48 +79,63 @@
                   <div class="box__title">
                     <h4>Olá <b>{{title}}</b>, Como está seu dia?</h4>
                   </div>
-                  <ul class="list-inline">
+                  <ul class="list-inline box__buttons">
                     <li>
-                      <button type="button" class="btn btn-default" value="1" v-on:click="send(1)">
-                        <i class="fa fa-frown-o" aria-hidden="true"></i>
+                      <button type="button" class="btn btn-link box__buttons__btn-vote" value="1" v-on:click="send(1)">
+                        <img src="../images/sad.png" alt="" class="box__buttons__btn-vote_img">
+                        <div class="box__buttons__btn-vote_text">
+                          tristinhx
+                        </div>
                       </button>
                     </li>
                     <li>
-                      <button type="button" class="btn btn-default" value="2" v-on:click="send(2)">
-                        <i class="fa fa-handshake-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="btn btn-default" value="3" v-on:click="send(3)">
-                        <i class="fa fa-meh-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="btn btn-default" value="4" v-on:click="send(4)">
-                        <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="btn btn-default" value="5" v-on:click="send(5)">
-                        <i class="fa fa-smile-o" aria-hidden="true"></i>
-                      </button>
-                    </li>
-                  </ul>
-                </template>
-                <template v-else> <!-- vote == true -->
-                  <div class="box__title">
-                    <h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4>
-                    <span class="box__lastvote">Último voto: {{lastVote.day}}</span>
-                  </div>
-                </template>
-              </template> <!-- v-else -->
-            </template>
+                      <button type="button" class="btn btn-link box__buttons__btn-vote" value="2" v-on:click="send(2)">
+                       <img src="../images/maybe.png" alt="" class="box__buttons__btn-vote_img">
+                       <div class="box__buttons__btn-vote_text">
+                        levando
+                      </div>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-link box__buttons__btn-vote" value="3" v-on:click="send(3)">
+                      <img src="../images/humm.png" alt="" class="box__buttons__btn-vote_img">
+                      <div class="box__buttons__btn-vote_text">
+                        humm...
+                      </div>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-link box__buttons__btn-vote" value="4" v-on:click="send(4)">
+                      <img src="../images/in-love.png" alt="" class="box__buttons__btn-vote_img">
+                      <div class="box__buttons__btn-vote_text">
+                        amando
+                      </div>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="btn btn-link box__buttons__btn-vote" value="5" v-on:click="send(5)">
+                      <img src="../images/happy.png" alt="" class="box__buttons__btn-vote_img">
+                      <div class="box__buttons__btn-vote_text">
+                        só alegria
+                      </div>
+                    </button>
+                  </li>
+                </ul>
+              </template>
+              <template v-else> <!-- vote == true -->
+                <div class="box__title">
+                  <h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4>
+                  <span class="box__lastvote">Último voto: {{lastVote.day}}</span>
+                </div>
+              </template>
+            </template> <!-- v-else -->
+          </template>
 
-          </div> <!-- box__list -->
-        </div> <!-- box -->
-      </div>
+        </div> <!-- box__list -->
+      </div> <!-- box -->
     </div>
-  </div> <!-- container -->
+  </div>
+</div> <!-- container -->
 </div> <!-- buddy -->
 <script src="../vendor/firebasev4.4.0.js"></script>
 
