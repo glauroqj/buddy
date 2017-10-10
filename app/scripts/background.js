@@ -1,26 +1,30 @@
 (function () {
 	/* verify vote */
 	setInterval(function() {
-	
-	let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
-	let date = moment().format('DD/MM/YYYY');
-	let day = moment().format('dddd');
-	let month = moment().format('MMM');
-	
-	/* verify is valid day of week */
-	if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
+		
+		let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
 
-		localStorage.removeItem('Buddy-Vote');
-		localStorage.removeItem('Buddy-Last-Vote');
-		let login = '';
-		let vote = '';
-		login = JSON.parse( localStorage.getItem('Buddy-Login') );
-		vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
+		if ( lastVote == null ) {
+			lastVote = 0;
+		}
 
-		resetVote(login, vote);
-	} /* verify is valid day of week */
+		let date = moment().format('DD/MM/YYYY');
+		let day = moment().format('dddd');
+		let month = moment().format('MMM');
 
-}, 3600000); 
+		/* verify is valid day of week */
+		if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
+			localStorage.removeItem('Buddy-Vote');
+			localStorage.removeItem('Buddy-Last-Vote');
+			let login = '';
+			let vote = '';
+			login = JSON.parse( localStorage.getItem('Buddy-Login') );
+			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
+
+			resetVote(login, vote);
+		} /* verify is valid day of week */
+
+	}, 3600000); 
 
 /* 
 3600000 1hour 
@@ -29,7 +33,9 @@
 
 function resetVote(login, vote) {
 	if ( login === '' || login === null || login === undefined ) {
-
+		/* set angry icon */
+		chrome.browserAction.setIcon({path: '../images/vote-me-20x20.png'});
+		
 		if (!('Notification' in window)) {
 			alert('This browser does not support desktop notification');
 		}
@@ -47,6 +53,8 @@ function resetVote(login, vote) {
 		}
 
 	} else if ( vote === '' || vote === null || vote === undefined ) {
+		/* set angry icon */
+		chrome.browserAction.setIcon({path: '../images/vote-me-20x20.png'});
 
 		if (!('Notification' in window)) {
 			alert('This browser does not support desktop notification');
@@ -65,7 +73,8 @@ function resetVote(login, vote) {
 		}
 
 	} else {
-
+		/* set good icon */
+		chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
 	}
 }
 

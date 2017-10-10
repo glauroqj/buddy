@@ -1,5 +1,6 @@
-html, body {
-	min-width: 500px;
+#buddy {
+	min-width: 270px;
+	max-width: 500px;
 	width: 100%;
 	color: #ABB7B7;
 	-webkit-transition: all 0.5s ease-out;
@@ -8,7 +9,14 @@ html, body {
 	transition: all 0.5s ease-out;
 }
 
+.w-470 {
+	min-width: 470px;
+}
+
 .box {
+
+}
+.box__list {
 
 }
 .box__list ul {
@@ -26,6 +34,9 @@ html, body {
 }
 .box__title h4 {
 	color: #6C7A89;
+}
+.box__title i {
+	color: #EF4836;
 }
 .box__lastvote {
 	font-size: 12px;

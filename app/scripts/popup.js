@@ -118,8 +118,7 @@
         localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
         this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
         /* create cookie and localstorage */
-        
-
+        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
         // Cookies.set('Buddy-Vote', value, {expire: 1});
         // Vue.ls.set('Buddy-Vote', value, 15000);
        // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
