@@ -22,7 +22,9 @@
 			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
 
 			resetVote(login, vote, date, lastVote);
-		} /* verify is valid day of week */
+		} else {
+			resetVote(login, vote, date, lastVote);
+		}
 
 	}, 3600000); 
 
