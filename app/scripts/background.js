@@ -15,13 +15,13 @@
 		/* verify is valid day of week */
 		if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
 			localStorage.removeItem('Buddy-Vote');
-			localStorage.removeItem('Buddy-Last-Vote');
+			// localStorage.removeItem('Buddy-Last-Vote');
 			let login = '';
 			let vote = '';
 			login = JSON.parse( localStorage.getItem('Buddy-Login') );
 			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
 
-			resetVote(login, vote);
+			resetVote(login, vote, date, lastVote);
 		} /* verify is valid day of week */
 
 	}, 3600000); 
@@ -31,7 +31,7 @@
 86400000 24hours
 */
 
-function resetVote(login, vote) {
+function resetVote(login, vote, date, lastVote) {
 	if ( login === '' || login === null || login === undefined ) {
 		/* set angry icon */
 		chrome.browserAction.setIcon({path: '../images/vote-me-20x20.png'});
@@ -41,13 +41,13 @@ function resetVote(login, vote) {
 		}
 		else if (Notification.permission === 'granted') {
 			var notification = new Notification('Olá, faça login por favor!');
-			voteAgain();
+			voteAgain(date, lastVote);
 		}
 		else if (Notification.permission !== 'denied') {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
 					var notification = new Notification('Olá, faça login por favor!');
-					voteAgain();
+					voteAgain(date, lastVote);
 				}
 			});
 		}
@@ -61,13 +61,13 @@ function resetVote(login, vote) {
 		}
 		else if (Notification.permission === 'granted') {
 			var notification = new Notification('Olá, como está seu dia hoje?');
-			voteAgain();
+			voteAgain(date, lastVote);
 		}
 		else if (Notification.permission !== 'denied') {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
 					var notification = new Notification('Olá, como está seu dia hoje?');
-					voteAgain();
+					voteAgain(date, lastVote);
 				}
 			});
 		}
@@ -78,12 +78,15 @@ function resetVote(login, vote) {
 	}
 }
 
-function voteAgain() {
+function voteAgain(date, lastVote) {
+	
+	let lastNotify = JSON.parse( localStorage.getItem('Buddy-Notify') );
 
-	chrome.tabs.create({
-		url: chrome.extension.getURL('pages/popup.html'),
-		active: true
-	}, function(tab) {
+	if (  lastNotify === '' || lastNotify === null || lastNotify === undefined ) {
+		chrome.tabs.create({
+			url: chrome.extension.getURL('pages/popup.html'),
+			active: true
+		}, function(tab) {
             // chrome.windows.create({
             //     tabId: tab.id,
             //     type: 'popup',
@@ -91,9 +94,24 @@ function voteAgain() {
             //     // incognito, top, left, ...
             // });
         });
+		generateNotify(date, lastVote);
+	}
 
 }
 
+function generateNotify(date, lastVote) {
+	if ( lastVote != undefined && lastVote != null && lastVote != 0 ) {
+		if ( date != lastVote.day  ) {
+			alert(lastVote.day)
+			localStorage.removeItem('Buddy-Notify');
+		}
+	} else {
+		let info = {
+			'notify': true
+		};
+		localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
+	}
+}
 
 /*end js*/
 })();
