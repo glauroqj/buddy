@@ -24,13 +24,33 @@
       name: '',
       sector: '',
       lastVote: '',
-      loading: false,
+      loading: false
     },
-    computed: {
-
+    watch: {
     },
     mounted() {
       var vm = this;
+      /* verify data per second */
+      setInterval(() => {
+        vm.user = JSON.parse( localStorage.getItem('Buddy-Login') );
+        if ( vm.user === '' || vm.user === null || vm.user === undefined ) {
+          vm.firstLogin = true;
+        } else {
+          vm.firstLogin = false;
+          vm.user = JSON.parse( localStorage.getItem('Buddy-Login') );
+          vm.title = vm.user.name;
+        }
+
+        vm.voted = localStorage.getItem('Buddy-Vote');
+        if ( vm.voted === '' || vm.voted === null || vm.voted === undefined ) {
+          vm.vote = false;
+        } else {
+          vm.vote = true;
+        }
+
+      }, 1000)
+
+      /* verify info */
       this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
       /* verify first login on buddy */
       // this.user = Vue.ls.get('Buddy-Login');
@@ -89,7 +109,7 @@
         let dateFormat = moment().format('DD/MM/YYYY');
         let month = moment().format('MMM');
         let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+date+'/vote.json';
-        let data = {
+        let vote = {
           'vote': value
         };
         let lastVote = {
@@ -100,10 +120,15 @@
           url: urlSend,
           method: 'POST',
           dataType: 'json',
-          data: JSON.stringify(data)
+          data: JSON.stringify(vote)
         })
         .done(function(data) {
           console.log('success', data) 
+          localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
+          localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
+          vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
+          /* create cookie and localstorage */
+          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
           setTimeout(function() {
             vm.loading = false;
           }, 800)
@@ -114,11 +139,7 @@
             vm.loading = false;
           }, 800)
         });
-        localStorage.setItem('Buddy-Vote', JSON.stringify(data) );
-        localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
-        this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
-        /* create cookie and localstorage */
-        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+
         // Cookies.set('Buddy-Vote', value, {expire: 1});
         // Vue.ls.set('Buddy-Vote', value, 15000);
        // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
@@ -129,5 +150,5 @@
     }
   }
 });
-  /*end js*/
+/*end js*/
 })();

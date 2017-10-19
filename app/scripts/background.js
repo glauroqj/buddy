@@ -1,6 +1,6 @@
 (function () {
 	/* verify vote */
-	setInterval(function() {
+	setInterval(() => {
 		
 		let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
 
@@ -21,9 +21,9 @@
 			login = JSON.parse( localStorage.getItem('Buddy-Login') );
 			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
 
-			resetVote(login, vote, date, lastVote);
+			resetVote(login, vote);
 		} else {
-			resetVote(login, vote, date, lastVote);
+			resetVote(login, vote);
 		}
 
 	}, 3600000); 
@@ -33,7 +33,11 @@
 86400000 24hours
 */
 
-function resetVote(login, vote, date, lastVote) {
+function resetVote(login, vote) {
+	let options = {
+		icon: '../images/buddy-20x20.png'
+	}
+
 	if ( login === '' || login === null || login === undefined ) {
 		/* set angry icon */
 		chrome.browserAction.setIcon({path: '../images/vote-me-20x20.png'});
@@ -42,14 +46,38 @@ function resetVote(login, vote, date, lastVote) {
 			alert('This browser does not support desktop notification');
 		}
 		else if (Notification.permission === 'granted') {
-			var notification = new Notification('Olá, faça login por favor!');
-			voteAgain(date, lastVote);
+			let notification = new Notification('Olá, faça login por favor!', options);
+			voteAgain();
+			notification.onclick = () => {
+				chrome.tabs.create({
+					url: chrome.extension.getURL('pages/popup.html'),
+					active: true
+				}, function(tab) {
+					chrome.windows.create({
+						tabId: tab.id,
+						type: 'popup',
+						focused: true
+					});
+				});
+			}
 		}
 		else if (Notification.permission !== 'denied') {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
-					var notification = new Notification('Olá, faça login por favor!');
-					voteAgain(date, lastVote);
+					let notification = new Notification('Olá, faça login por favor!', options);
+					voteAgain();
+					notification.onclick = () => {
+						chrome.tabs.create({
+							url: chrome.extension.getURL('pages/popup.html'),
+							active: true
+						}, function(tab) {
+							chrome.windows.create({
+								tabId: tab.id,
+								type: 'popup',
+								focused: true
+							});
+						});
+					}
 				}
 			});
 		}
@@ -62,14 +90,38 @@ function resetVote(login, vote, date, lastVote) {
 			alert('This browser does not support desktop notification');
 		}
 		else if (Notification.permission === 'granted') {
-			var notification = new Notification('Olá, como está seu dia hoje?');
-			voteAgain(date, lastVote);
+			let notification = new Notification('Olá, como está seu dia?', options);
+			voteAgain();
+			notification.onclick = () => {
+				chrome.tabs.create({
+					url: chrome.extension.getURL('pages/popup.html'),
+					active: true
+				}, function(tab) {
+					chrome.windows.create({
+						tabId: tab.id,
+						type: 'popup',
+						focused: true
+					});
+				});
+			}
 		}
 		else if (Notification.permission !== 'denied') {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
-					var notification = new Notification('Olá, como está seu dia hoje?');
-					voteAgain(date, lastVote);
+					let notification = new Notification('Olá, como está seu dia?', options);
+					voteAgain();
+					notification.onclick = () => {
+						chrome.tabs.create({
+							url: chrome.extension.getURL('pages/popup.html'),
+							active: true
+						}, function(tab) {
+							chrome.windows.create({
+								tabId: tab.id,
+								type: 'popup',
+								focused: true
+							});
+						});
+					}
 				}
 			});
 		}
@@ -80,40 +132,40 @@ function resetVote(login, vote, date, lastVote) {
 	}
 }
 
-function voteAgain(date, lastVote) {
-	
+function voteAgain() {
 	let lastNotify = JSON.parse( localStorage.getItem('Buddy-Notify') );
 
 	if (  lastNotify === '' || lastNotify === null || lastNotify === undefined ) {
+
 		chrome.tabs.create({
 			url: chrome.extension.getURL('pages/popup.html'),
 			active: true
 		}, function(tab) {
-            // chrome.windows.create({
-            //     tabId: tab.id,
-            //     type: 'popup',
-            //     focused: true
-            //     // incognito, top, left, ...
-            // });
-        });
-		generateNotify(date, lastVote);
+			chrome.windows.create({
+				tabId: tab.id,
+				type: 'popup',
+				focused: false
+			});
+			/* set localstorage value true */
+			let info = {
+				'notify': true
+			};
+			localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
+		});
+
 	}
 
 }
 
-function generateNotify(date, lastVote) {
-	if ( lastVote != undefined && lastVote != null && lastVote != 0 ) {
-		if ( date != lastVote.day  ) {
-			alert(lastVote.day)
-			localStorage.removeItem('Buddy-Notify');
-		}
-	} else {
-		let info = {
-			'notify': true
-		};
-		localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
-	}
-}
+setInterval(() => {
+	/* reset localstorage value */
+	localStorage.removeItem('Buddy-Notify');
+}, 72000000);
+/* 
+3600000 1hour 
+72000000 20hours
+*/
+
 
 /*end js*/
 })();
