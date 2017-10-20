@@ -26,7 +26,7 @@
 			resetVote(login, vote);
 		}
 
-	}, 3600000); 
+	}, 25000); 
 
 /* 
 3600000 1hour 
@@ -47,7 +47,10 @@ function resetVote(login, vote) {
 		}
 		else if (Notification.permission === 'granted') {
 			let notification = new Notification('Olá, faça login por favor!', options);
-			voteAgain();
+			// voteAgain();
+			setTimeout(() => {
+				notification.close();
+			}, 3500);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -65,7 +68,10 @@ function resetVote(login, vote) {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
 					let notification = new Notification('Olá, faça login por favor!', options);
-					voteAgain();
+					// voteAgain();
+					setTimeout(() => {
+						notification.close();
+					}, 3500);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -91,7 +97,10 @@ function resetVote(login, vote) {
 		}
 		else if (Notification.permission === 'granted') {
 			let notification = new Notification('Olá, como está seu dia?', options);
-			voteAgain();
+			// voteAgain();
+			setTimeout(() => {
+				notification.close();
+			}, 3500);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -109,7 +118,10 @@ function resetVote(login, vote) {
 			Notification.requestPermission(function (permission) {
 				if (permission === 'granted') {
 					let notification = new Notification('Olá, como está seu dia?', options);
-					voteAgain();
+					// voteAgain();
+					setTimeout(() => {
+						notification.close();
+					}, 3500);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -132,30 +144,30 @@ function resetVote(login, vote) {
 	}
 }
 
-function voteAgain() {
-	let lastNotify = JSON.parse( localStorage.getItem('Buddy-Notify') );
+// function voteAgain() {
+// 	let lastNotify = JSON.parse( localStorage.getItem('Buddy-Notify') );
 
-	if (  lastNotify === '' || lastNotify === null || lastNotify === undefined ) {
+// 	if (  lastNotify === '' || lastNotify === null || lastNotify === undefined ) {
 
-		chrome.tabs.create({
-			url: chrome.extension.getURL('pages/popup.html'),
-			active: true
-		}, function(tab) {
-			chrome.windows.create({
-				tabId: tab.id,
-				type: 'popup',
-				focused: false
-			});
-			/* set localstorage value true */
-			let info = {
-				'notify': true
-			};
-			localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
-		});
+// 		chrome.tabs.create({
+// 			url: chrome.extension.getURL('pages/popup.html'),
+// 			active: true
+// 		}, function(tab) {
+// 			chrome.windows.create({
+// 				tabId: tab.id,
+// 				type: 'popup',
+// 				focused: false
+// 			});
+// 			/* set localstorage value true */
+// 			let info = {
+// 				'notify': true
+// 			};
+// 			localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
+// 		});
 
-	}
+// 	}
 
-}
+// }
 
 setInterval(() => {
 	/* reset localstorage value */
