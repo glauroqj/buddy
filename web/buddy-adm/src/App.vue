@@ -25,12 +25,36 @@
 </template>
 
 <script>
-import Login from './components/Login.vue'
+import Firebase from 'firebase'
 
 export default {
-  name: 'app',
+  name: 'Buddy-Admin',
   components: {
-    Login
+  },
+  data () {
+    return {
+      // statusnavbar: '',
+      user: '',
+      login: true,
+      loading: true
+    }
+  },
+  created() {
+    var vm = this;
+    Firebase.auth().onAuthStateChanged((user) => {
+      vm.loading = true;
+      setTimeout(() => {
+        if (user) {
+          vm.user = user;
+          vm.$router.push('/painel-de-controle');
+          vm.login = false;
+          vm.loading = false;
+        } else {
+          vm.$router.push('/')
+          vm.loading = false;
+        }
+      }, 1000);
+    });
   }
 }
 </script>

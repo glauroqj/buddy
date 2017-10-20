@@ -3,12 +3,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueFire from 'vuefire'
-import Firebase from 'firebase'
-import Firebaseui from 'firebaseui';
-import {config} from './firebase.js'
-import VueRouter from 'vue-router'
-
 import App from './App'
+import Firebase from 'firebase'
+import {config} from './firebase.js'
+import Toasted from 'vue-toasted'
+import VueRouter from 'vue-router'
 
 import '../node_modules/normalize.css'
 import '../node_modules/jquery/dist/jquery.min.js'
@@ -20,6 +19,12 @@ import PanelControl from './components/PanelControl.vue'
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueFire);
+let Options = {
+	theme: 'primary',
+	position: 'top-right',
+	duration: 3000
+}
+Vue.use(Toasted, Options)
 
 
 Vue.config.productionTip = false

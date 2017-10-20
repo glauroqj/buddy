@@ -29,7 +29,6 @@
 
 <script>
 	import Firebase from 'firebase'
-	import Firebaseui from 'firebaseui'
 	import {config} from '../firebase.js'
 
 	export default {
@@ -45,15 +44,16 @@
 		methods: {
 			sendLogin: function() {
 				var vm = this;
-				// Firebase.auth().signInWithEmailAndPassword(vm.email, vm.password).catch(function(error) {
-				// 	if ( !error.code ) {
+				Firebase.auth().signInWithEmailAndPassword(vm.email, vm.password).catch(function(error) {
+					if ( !error.code ) {
 						
-				// 	} else {
-				// 		vm.$toasted.show('Login/Senha inválidos! :(')
-				// 	}
-				// 	var errorCode = error.code;
-				// 	var errorMessage = error.message;
-				// });
+					} else {
+						vm.$toasted.show('Login/Senha inválidos! :(')
+					}
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					console.log(errorCode, errorMessage)
+				});
 			}
 		}
 	}
