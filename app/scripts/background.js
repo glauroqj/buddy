@@ -12,6 +12,9 @@
 		let day = moment().format('dddd');
 		let month = moment().format('MMM');
 
+		let hourActual = moment().format('HH:MM');
+
+
 		/* verify is valid day of week */
 		if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
 			localStorage.removeItem('Buddy-Vote');
@@ -21,12 +24,17 @@
 			login = JSON.parse( localStorage.getItem('Buddy-Login') );
 			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
 
-			resetVote(login, vote);
+			/* validate hour to show notification */
+			if ( hourActual > '09:00' && hourActual < '18:00' ) {	
+				resetVote(login, vote);
+			}
 		} else {
-			resetVote(login, vote);
+			if ( hourActual > '09:00' && hourActual < '18:00' ) {	
+				resetVote(login, vote);
+			}
 		}
 
-	}, 25000); 
+	}, 5000); 
 
 /* 
 3600000 1hour 
@@ -50,7 +58,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 3500);
+			}, 5000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -71,7 +79,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 3500);
+					}, 5000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -100,7 +108,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 3500);
+			}, 5000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -121,7 +129,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 3500);
+					}, 5000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
