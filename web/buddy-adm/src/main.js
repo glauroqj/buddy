@@ -9,13 +9,16 @@ import {config} from './firebase.js'
 import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
 
-import '../node_modules/normalize.css'
-import '../node_modules/jquery/dist/jquery.min.js'
+import './assets/css/normalize.css'
+import './assets/js/jquery.min.js'
+import './assets/js/bootstrap.min.js'
+
 
 /*components*/
 import Login from './components/Login.vue'
 import PanelControl from './components/PanelControl.vue'
 import Loading from './components/Loading.vue'
+import Navbar from './components/Navbar.vue'
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
