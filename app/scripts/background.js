@@ -18,12 +18,11 @@
 		/* verify is valid day of week */
 		if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
 			localStorage.removeItem('Buddy-Vote');
-			// localStorage.removeItem('Buddy-Last-Vote');
+			/* localStorage.removeItem('Buddy-Last-Vote'); */
 			let login = '';
 			let vote = '';
 			login = JSON.parse( localStorage.getItem('Buddy-Login') );
 			vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
-
 			/* validate hour to show notification */
 			if ( hourActual > '09:00' && hourActual < '18:00' ) {	
 				resetVote(login, vote);
@@ -34,7 +33,7 @@
 			}
 		}
 
-	}, 3600000); 
+	}, 3600000);
 
 /* 
 3600000 1hour 
@@ -58,7 +57,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 5000);
+			}, 10000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -67,6 +66,8 @@ function resetVote(login, vote) {
 					chrome.windows.create({
 						tabId: tab.id,
 						type: 'popup',
+						height: 420, 
+						width: 500,
 						focused: true
 					});
 				});
@@ -79,7 +80,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 5000);
+					}, 10000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -88,6 +89,8 @@ function resetVote(login, vote) {
 							chrome.windows.create({
 								tabId: tab.id,
 								type: 'popup',
+								height: 420, 
+								width: 500,
 								focused: true
 							});
 						});
@@ -108,7 +111,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 5000);
+			}, 10000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -117,6 +120,8 @@ function resetVote(login, vote) {
 					chrome.windows.create({
 						tabId: tab.id,
 						type: 'popup',
+						height: 120, 
+						width: 500,
 						focused: true
 					});
 				});
@@ -129,7 +134,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 5000);
+					}, 10000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -138,6 +143,8 @@ function resetVote(login, vote) {
 							chrome.windows.create({
 								tabId: tab.id,
 								type: 'popup',
+								height: 120, 
+								width: 500,
 								focused: true
 							});
 						});
