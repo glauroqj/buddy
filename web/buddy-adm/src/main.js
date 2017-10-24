@@ -32,7 +32,8 @@ Vue.config.productionTip = false
 
 const routes = [ 
 { path: '/', component: Login },
-{ path: '/painel-de-controle', auth: true, component: PanelControl }
+{ path: '/painel-de-controle', auth: true, component: PanelControl },
+{ path: '*', redirect: '/painel-de-controle' }
 ]
 
 const router = new VueRouter({
