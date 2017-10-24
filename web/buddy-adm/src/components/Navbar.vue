@@ -24,7 +24,7 @@
 								Menu <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="disabled">{{name}}</a></li>
+								<li><a class="disabled">{{email}}</a></li>
 								<li role="separator" class="divider"></li>
 								<li>
 									<a href="/" v-on:click="logout()">Sair</a>
@@ -68,11 +68,8 @@
 		},
 		methods: {
 			logout: function() {
-				this.$ls.set('show_name_user', false);
 				Firebase.auth().signOut();
 				this.$router.push('/');
-				this.$store.dispatch('hideNavbar');
-				this.$store.dispatch('menuHide');
 			},
 			getUser: function() {
 				var vm = this;
