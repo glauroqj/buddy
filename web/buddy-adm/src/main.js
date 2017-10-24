@@ -15,6 +15,7 @@ import '../node_modules/jquery/dist/jquery.min.js'
 /*components*/
 import Login from './components/Login.vue'
 import PanelControl from './components/PanelControl.vue'
+import Loading from './components/Loading.vue'
 
 Vue.use(VueRouter);
 Vue.use(Vuex);

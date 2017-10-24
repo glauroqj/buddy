@@ -1,15 +1,15 @@
 <template>
   <div id="app">
 
-<!--     <template v-if="loading">
+    <template v-if="loading">
       <div class="row-fluid">
         <div class="col-xs-12 text-center">
          <loading :height="80" :width="80"></loading>
        </div>
      </div>
-   </template> -->
+   </template>
 
-   <template>
+   <template v-else>
     <!-- <navBar :statusnavbar="statusnavbar"></navBar> -->
     <div class="row-fluid">
       <aside class="col-xs-3">
@@ -26,10 +26,12 @@
 
 <script>
 import Firebase from 'firebase'
+import loading from './components/Loading.vue'
 
 export default {
   name: 'Buddy-Admin',
   components: {
+    loading
   },
   data () {
     return {

@@ -1,7 +1,7 @@
 <template lang="html">
 	<div>
 		<div class="loading">
-			<img src="../assets/images/loading.gif" :height="height" :width="width" alt="loading"> Carregando...
+			<img src="../assets/img/loading.gif" :height="height" :width="width" alt="loading"> Carregando...
 		</div>
 	</div>
 </template>
