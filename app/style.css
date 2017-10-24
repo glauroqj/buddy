@@ -35,6 +35,12 @@
 .box__title h4 {
 	color: #6C7A89;
 }
+.box__weekend {
+
+}
+.box__weekend-gif {
+	padding: 5px 0px 10px;
+}
 .box__title i {
 	color: #EF4836;
 }

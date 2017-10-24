@@ -22,6 +22,15 @@
               </div>
             </template>
 
+            <template v-else-if="weekend == true">
+                <div class="box__weekend">
+                    <h4>Tenha um bom fim de semana!</h4>
+                    <div class="box__weekend-gif">
+                      <img class="img-responsive" :src="gif.image_url" alt="">
+                    </div>
+                </div>
+            </template>
+
             <template v-else>
               <div class="box__list" :class="{'w-470': vote == false}">
                 <template v-if="firstLogin == true">
@@ -121,13 +130,13 @@
                     </button>
                   </li>
                 </ul>
-              </template>
-              <template v-else> <!-- vote == true -->
+                </template>
+                <template v-else> <!-- vote == true -->
                 <div class="box__title">
                   <h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4>
                   <span class="box__lastvote">Último voto: {{lastVote.day}}</span>
                 </div>
-              </template>
+                </template>
             </template> <!-- v-else -->
           </template>
 

@@ -17,6 +17,7 @@
       user: {},
       title: '',
       firstLogin: true,
+      weekend: false,
       vote: false,
       voted: {},
       company: 'Sympla',
@@ -24,7 +25,8 @@
       name: '',
       sector: '',
       lastVote: '',
-      loading: false
+      loading: false,
+      gif: []
     },
     watch: {
     },
@@ -32,6 +34,7 @@
       var vm = this;
       /* verify data per second */
       setInterval(() => {
+
         vm.user = JSON.parse( localStorage.getItem('Buddy-Login') );
         if ( vm.user === '' || vm.user === null || vm.user === undefined ) {
           vm.firstLogin = true;
@@ -48,7 +51,28 @@
           vm.vote = true;
         }
 
-      }, 1000)
+      }, 1000);
+
+      /* verify weekend */
+      let day = moment().format('dddd');
+      if ( day == 'Saturday' || day == 'Sunday' ) { 
+        let url = 'https://api.giphy.com/v1/gifs/random?api_key=xmSEm4iAty6mMRGFUm4k3bErZeqmYi1w&tag=happy&rating=G';
+        $.ajax({
+          url: url,
+          method: 'GET',
+          dataType: 'json',
+        })
+        .done(function(data) {
+          vm.gif = data.data;
+        })
+        .fail(function(xhr) {
+          console.log('error', xhr);
+        });
+
+        vm.weekend = true;
+      } else {
+        vm.weekend = false;
+      }
 
       /* verify info */
       this.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
