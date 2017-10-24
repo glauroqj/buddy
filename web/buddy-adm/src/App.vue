@@ -10,7 +10,7 @@
    </template>
 
    <template v-else>
-    <!-- <navBar :statusnavbar="statusnavbar"></navBar> -->
+    <navbar :statusnavbar="statusnavbar"></navbar>
     <div class="row-fluid">
       <aside class="col-xs-3">
         <!-- <sideMenu :statusMenu="menuChange"></sideMenu> -->
@@ -27,15 +27,17 @@
 <script>
 import Firebase from 'firebase'
 import loading from './components/Loading.vue'
+import navbar from './components/Navbar.vue'
 
 export default {
   name: 'Buddy-Admin',
   components: {
-    loading
+    loading,
+    navbar
   },
   data () {
     return {
-      // statusnavbar: '',
+      statusnavbar: '',
       user: '',
       login: true,
       loading: true
@@ -49,11 +51,13 @@ export default {
         if (user) {
           vm.user = user;
           vm.$router.push('/painel-de-controle');
+          vm.statusnavbar = true;
           vm.login = false;
           vm.loading = false;
         } else {
           vm.$router.push('/')
           vm.loading = false;
+          vm.statusnavbar = false;
         }
       }, 1000);
     });
@@ -68,6 +72,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
