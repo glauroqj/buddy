@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 dist/
+public/
+firebase.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -12,3 +14,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+.firebaserc
+.directory
