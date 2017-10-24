@@ -57,7 +57,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 10000);
+			}, 15000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -80,7 +80,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 10000);
+					}, 15000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
@@ -111,7 +111,7 @@ function resetVote(login, vote) {
 			// voteAgain();
 			setTimeout(() => {
 				notification.close();
-			}, 10000);
+			}, 15000);
 			notification.onclick = () => {
 				chrome.tabs.create({
 					url: chrome.extension.getURL('pages/popup.html'),
@@ -134,7 +134,7 @@ function resetVote(login, vote) {
 					// voteAgain();
 					setTimeout(() => {
 						notification.close();
-					}, 10000);
+					}, 15000);
 					notification.onclick = () => {
 						chrome.tabs.create({
 							url: chrome.extension.getURL('pages/popup.html'),
