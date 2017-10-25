@@ -1,5 +1,5 @@
 <template lang="html">
-	<div v-show="statusnavbar == true">
+	<div v-show="statusNavbar == true">
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -24,7 +24,7 @@
 								Menu <span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="disabled">{{email}}</a></li>
+								<li><a class="disabled">{{navbarUser.email}}</a></li>
 								<li role="separator" class="divider"></li>
 								<li>
 									<a href="/" v-on:click="logout()">Sair</a>
@@ -39,56 +39,59 @@
 </template>
 
 <script>
-	import Firebase from 'firebase'
-	import {config} from '../firebase.js'
-	import loading from '../components/Loading.vue'
+import Firebase from 'firebase'
+import {config} from '../firebase.js'
+import loading from '../components/Loading.vue'
 
-	export default {
-		name: 'navBar',
-		props: {
-			statusnavbar: Boolean
-		},
-		components:{
-			loading
-		},
-		data () {
-			return {
-				title: '',
-				photo: '',
-				userId: '',
-				name: '',
-				email: '',
-				user: '',
-				loading: true
+export default {
+	name: 'navBar',
+	props: {
+		statusNavbar: Boolean,
+		navbarUser: Object
+	},
+	components:{
+		loading
+	},
+	data () {
+		return {
+			loading: true
+		}
+	},
+	mounted() {
+		var vm = this;
+
+		setTimeout(() => {
+			if (vm.navbarUser) {
+				vm.loading = false;
+			} else {
+				vm.loading = true;
 			}
+		}, 1500);
+
+	},
+	methods: {
+		logout: function() {
+			Firebase.auth().signOut();
+			this.$router.push('/');
 		},
-		mounted() {
-			var vm = this;
-			this.getUser();
-		},
-		methods: {
-			logout: function() {
-				Firebase.auth().signOut();
-				this.$router.push('/');
-			},
-			getUser: function() {
-				var vm = this;
-				this.user = Firebase.auth().currentUser;
-				if(this.user) {
-					this.loading = false;
-					this.name = this.user.displayName;
-					this.email = this.user.email; 
-					this.photo = this.user.photoURL; 
-					this.userId = this.user.uid;
-				} else {
-					this.loading = true;
-				}
-			}
+			// getUser: function() {
+			// 	var vm = this;
+			// 	this.user = Firebase.auth().currentUser;
+			// 	if(this.user) {
+			// 		this.loading = false;
+			// 		this.name = this.user.displayName;
+			// 		this.email = this.user.email; 
+			// 		this.photo = this.user.photoURL; 
+			// 		this.userId = this.user.uid;
+			// 	} else {
+			// 		this.loading = true;
+			// 	}
+			// }
 		}
 	}
-</script>
+	</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+	<!-- Add "scoped" attribute to limit CSS to this component only -->
+	<style scoped>
 
-</style>
+	</style>

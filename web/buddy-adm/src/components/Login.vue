@@ -2,7 +2,7 @@
 	<div>
 		<div class="row">
 			<div class="col-md-offset-2 col-md-4 box-login">
-				<div class="panel panel-default">
+				<div class="panel panel-default animated fadeIn">
 					<div class="panel-heading text-center">
 						<h3><i class="fa fa-lock" aria-hidden="true"></i> Login</h3>
 					</div>
@@ -17,7 +17,12 @@
 									<label>Senha</label>
 									<input type="password" name="Password" class="form-control" id="" v-model="password">
 								</div>
-								<button :disabled="email == '' && password == ''" type="submit" class="btn btn-success" v-on:click="sendLogin()">entrar</button>
+
+								<button class="btn btn-success" :disabled="email == '' && password == '' || verifying == true" type="submit" v-on:click="sendLogin()">
+									<span v-if="!verifying">entrar</span>
+									<span v-else>verificando...</span>
+								</button>
+
 							</form>
 						</div>
 					</div>
@@ -28,40 +33,42 @@
 </template>
 
 <script>
-	import Firebase from 'firebase'
-	import {config} from '../firebase.js'
+import Firebase from 'firebase'
+import {config} from '../firebase.js'
 
-	export default {
-		name: 'login',
-		data () {
-			return {
-				email: '',
-				password: ''
-			}
-		},
-		mounted() {
-		},
-		methods: {
-			sendLogin: function() {
-				var vm = this;
-				Firebase.auth().signInWithEmailAndPassword(vm.email, vm.password).catch(function(error) {
-					if ( !error.code ) {
-						
-					} else {
-						vm.$toasted.show('Login/Senha inválidos! :(')
-					}
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					console.log(errorCode, errorMessage)
-				});
-			}
+export default {
+	name: 'login',
+	data () {
+		return {
+			email: '',
+			password: '',
+			verifying: false
+		}
+	},
+	mounted() {
+	},
+	methods: {
+		sendLogin: function() {
+			var vm = this;
+			this.verifying = true;
+			Firebase.auth().signInWithEmailAndPassword(vm.email, vm.password).catch(function(error) {
+				if ( !error.code ) {
+
+				} else {
+					vm.$toasted.show('Login/Senha inválidos! :(')
+				}
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log(errorCode, errorMessage)
+			});
 		}
 	}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.box-login {
-		margin-top: 10%;
-	}
+.box-login {
+	margin-top: 10%;
+}
 </style>

@@ -10,10 +10,10 @@
    </template>
 
    <template v-else>
-    <navbar :statusnavbar="statusnavbar"></navbar>
+    <navbar :statusNavbar="statusNavbar" :navbarUser="user"></navbar>
     <div class="row-fluid">
       <aside class="col-xs-3">
-        <!-- <sideMenu :statusMenu="menuChange"></sideMenu> -->
+        <sidebar :statusSidebar="statusSidebar"></sidebar>
       </aside>
       <div class="col-xs-9">
         <router-view></router-view>
@@ -28,39 +28,43 @@
 import Firebase from 'firebase'
 import loading from './components/Loading.vue'
 import navbar from './components/Navbar.vue'
+import sidebar from './components/Sidebar.vue'
 
 export default {
   name: 'Buddy-Admin',
   components: {
     loading,
-    navbar
+    navbar,
+    sidebar
   },
   data () {
     return {
-      statusnavbar: '',
-      user: '',
-      login: true,
-      loading: true
+      user: {},
+      loading: true,
+      statusNavbar: false,
+      statusSidebar: false
     }
   },
   created() {
     var vm = this;
     Firebase.auth().onAuthStateChanged((user) => {
-      vm.loading = true;
       setTimeout(() => {
         if (user) {
           vm.user = user;
+          vm.statusNavbar = true;
+          vm.statusSidebar = true;
+          vm.loading = false;
           vm.$router.push('/painel-de-controle');
-          vm.statusnavbar = true;
-          vm.login = false;
-          vm.loading = false;
         } else {
-          vm.$router.push('/')
           vm.loading = false;
-          vm.statusnavbar = false;
+          vm.statusNavbar = false;
+          vm.statusSidebar = false;
+          vm.$router.push('/');
         }
-      }, 1000);
+      }, 1500);
     });
+  },
+  mounted() {
   }
 }
 </script>

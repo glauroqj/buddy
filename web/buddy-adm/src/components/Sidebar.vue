@@ -1,0 +1,55 @@
+<template lang="html">
+	<div v-if="statusSidebar == true">
+		<div class="sidebar animated fadeInLeft">
+			<ul class="list-group">
+				<li class="list-group-item" v-for="list in lists">
+					<a :href="list.link" :class="{'active': list.link == route}" v-on:click="getRoute()">{{list.title}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</template>
+
+<script>
+	import Firebase from 'firebase'
+	import {config} from '../firebase.js'
+	
+	export default {
+		name: 'sideBar',
+		props: {
+			statusSidebar: Boolean
+		},
+		data() {
+			return {
+				lists: [{
+					title: 'Painel de Controle',
+					link: '#/painel-de-controle'
+				},
+				{
+					title: 'Áreas',
+					link: '#/areas'
+				},
+				{
+					title: 'Opções',
+					link: '#/opcoes'
+				}
+				],
+				route: ''
+			}
+		},
+		computed: {
+		},
+		watch: {
+		},
+		mounted() {
+			var vm = this;
+
+		},
+		methods: {
+		}
+	}
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>
