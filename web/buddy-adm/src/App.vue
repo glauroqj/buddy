@@ -3,7 +3,7 @@
 
     <template v-if="loading">
       <div class="row-fluid">
-        <div class="col-xs-12 text-center">
+        <div class="col-xs-12 text-center loading-run">
          <loading :height="80" :width="80"></loading>
        </div>
      </div>
@@ -65,12 +65,4 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-</style>
+<style lang="scss" src="./assets/css/main.scss"></style>
