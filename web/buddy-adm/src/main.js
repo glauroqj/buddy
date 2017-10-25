@@ -9,7 +9,6 @@ import {config} from './firebase.js'
 import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
 
-import './assets/css/normalize.css'
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
 
