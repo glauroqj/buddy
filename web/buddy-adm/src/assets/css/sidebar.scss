@@ -1,0 +1,29 @@
+.sidebar {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+	li {
+		padding: 0px;
+		>a {
+			padding: 15px;
+			display: block;
+			-webkit-transition: all 0.5s ease-out;
+			-moz-transition: all 0.5s ease-out;
+			-o-transition: all 0.5s ease-out;
+			transition: all 0.5s ease-out;
+		}
+		a:hover {
+			text-decoration: none;
+			background-color: #eee;
+			color: #323232;
+			padding-left: 20px;
+		}
+		a.active {
+			text-decoration: none;
+			background-color: #eee;
+			color: #323232;
+			padding-left: 20px;
+		}
+	}
+}

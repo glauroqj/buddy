@@ -1,5 +1,12 @@
 <template lang="html">
-	<div>
+	<div v-if="loading">
+		<div class="row-fluid">
+			<div class="col-xs-12 text-center">
+				<loading :height="80" :width="80"></loading>
+			</div>
+		</div>
+	</div>
+	<div v-else>
 		<div class="col-xs-9">
 			<h3>Lista itens menu</h3>
 		</div>
@@ -17,40 +24,37 @@
 </template>
 
 <script>
-	import Firebase from 'firebase'
+import Firebase from 'firebase'
+import loading from '../components/Loading.vue'
 
-	export default {
-		name: 'PanelControl',
-		components:{
-		},
-		data() {
-			return {
-			}
-		},
-		mounted() {
-		},
-		methods: {
-			// hideMenu: function() {
-			// 	this.$store.dispatch('menuHide');
-			// },
-			// showMenu: function() {
-			// 	this.$store.dispatch('menuShow');
-			// },
-			// listItens: function() {
-			// 	$.ajax({
-			// 		url: 'https://portfolio-fe077.firebaseio.com/home/navbar.json',
-			// 		method: 'GET'
-			// 	})
-			// 	.done(function(data) {
-			// 		console.log('success', data) 
-			// 	})
-			// 	.fail(function(xhr) {
-			// 		console.log('error', xhr);
-			// 	});
-
-			// }
+export default {
+	name: 'PanelControl',
+	components:{
+		loading
+	},
+	data() {
+		return {
+			loading: true
 		}
+	},
+	created() {
+		var vm = this;
+		Firebase.auth().onAuthStateChanged((user) => {
+			setTimeout(() => {
+				if (user) {
+					vm.loading = false;
+				} else {
+					vm.loading = true;
+					vm.$router.push('/')
+				}
+			}, 1500);
+		});
+	},
+	mounted() {
+	},
+	methods: {
 	}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

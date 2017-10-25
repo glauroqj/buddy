@@ -12,12 +12,14 @@ import VueRouter from 'vue-router'
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
 
-
 /*components*/
 import Login from './components/Login.vue'
 import PanelControl from './components/PanelControl.vue'
+
 import Loading from './components/Loading.vue'
 import Navbar from './components/Navbar.vue'
+import Sidebar from './components/Sidebar.vue'
+
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
