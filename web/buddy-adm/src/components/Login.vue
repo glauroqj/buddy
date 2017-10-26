@@ -55,12 +55,18 @@ export default {
 				if ( !error.code ) {
 
 				} else {
-					vm.$toasted.show('Login/Senha inválidos! :(')
+					vm.$toasted.show('Login/Senha inválidos! :(');
+					vm.verifying = false;
+					vm.reset();
 				}
 				var errorCode = error.code;
 				var errorMessage = error.message;
 				console.log(errorCode, errorMessage)
 			});
+		},
+		reset: function() {
+			this.email = '';
+			this.password = '';
 		}
 	}
 }
