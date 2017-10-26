@@ -8,6 +8,7 @@ import Firebase from 'firebase'
 import {config} from './firebase.js'
 import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
@@ -24,6 +25,7 @@ import Sidebar from './components/Sidebar.vue'
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueFire);
+Vue.use(VueResource);
 let Options = {
 	theme: 'primary',
 	position: 'top-right',
