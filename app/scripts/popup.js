@@ -21,7 +21,6 @@
       vote: false,
       voted: {},
       company: 'Sympla',
-      registration: '',
       name: '',
       sector: '',
       lastVote: '',
@@ -113,7 +112,6 @@
       login: function() {
         let info = {
           company: this.company,
-          registration: this.registration,
           name: this.name,
           sector: this.sector
         }
