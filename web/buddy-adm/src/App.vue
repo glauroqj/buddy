@@ -4,7 +4,7 @@
     <template v-if="loading">
       <div class="row-fluid">
         <div class="col-xs-12 text-center loading-run">
-         <loading :height="80" :width="80"></loading>
+         <loading text="Carregando Buddy..." :height="80" :width="80"></loading>
        </div>
      </div>
    </template>
