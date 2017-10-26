@@ -1,6 +1,6 @@
 <template lang="html">
 	<div>
-		<div class="loading">
+		<div class="loading animated fadeIn">
 			<img src="../assets/img/loading.gif" :height="height" :width="width"> {{text}}
 		</div>
 	</div>
