@@ -2,7 +2,7 @@
 	<div v-if="loading">
 		<div class="row-fluid">
 			<div class="col-xs-pull-2 col-xs-12 text-center">
-				<loading :height="80" :width="80"></loading>
+				<loading text="Carregando Painel de Controle..." :height="80" :width="80"></loading>
 			</div>
 		</div>
 	</div>

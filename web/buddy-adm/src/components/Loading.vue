@@ -1,39 +1,41 @@
 <template lang="html">
 	<div>
 		<div class="loading">
-			<img src="../assets/img/loading.gif" :height="height" :width="width" alt="loading"> Carregando...
+			<img src="../assets/img/loading.gif" :height="height" :width="width"> {{text}}
 		</div>
 	</div>
 </template>
 
 <script>
-	export default {
-		name: 'loading',
-		props: {
-			height: {
-				Number,
-				required: true
-			},
-			width: {
-				Number,
-				required: true
-			}
+export default {
+	name: 'loading',
+	props: {
+		text: {
+			type: String
 		},
-		data () {
-			return {
-			}
+		height: {
+			type: Number,
+			required: true
 		},
-		mounted() {
-
-		},
-		methods: {
+		width: {
+			type: Number,
+			required: true
 		}
+	},
+	data () {
+		return {
+		}
+	},
+	mounted() {
+	},
+	methods: {
 	}
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-	.loading {
-		display: block;
-	}
+.loading {
+	display: block;
+}
 </style>

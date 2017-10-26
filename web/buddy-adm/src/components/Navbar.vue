@@ -17,7 +17,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li v-if="loading==true">
-							<loading :height="30" :width="30"></loading>
+							<loading text="Carregando Menu..." :height="30" :width="30"></loading>
 						</li>
 						<li class="dropdown" v-else>
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
