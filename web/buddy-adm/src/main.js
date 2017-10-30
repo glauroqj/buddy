@@ -16,6 +16,7 @@ import './assets/js/bootstrap.min.js'
 /* pages */
 import Login from './pages/Login.vue'
 import PanelControl from './pages/PanelControl.vue'
+import Setores from './pages/Setores.vue'
 
 /*components*/
 import Loading from './components/Loading.vue'
@@ -40,6 +41,7 @@ Vue.config.productionTip = false
 const routes = [ 
 { path: '/', component: Login },
 { path: '/painel-de-controle', auth: true, component: PanelControl },
+{ path: '/setores', auth: true, component: Setores },
 { path: '*', redirect: '/painel-de-controle' }
 ]
 

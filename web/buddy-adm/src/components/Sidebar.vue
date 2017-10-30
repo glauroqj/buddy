@@ -3,7 +3,7 @@
 		<div class="sidebar animated fadeInLeft">
 			<ul class="list-group">
 				<li class="list-group-item" v-for="list in lists">
-					<a :href="list.link" :class="{'active': list.link == route}" v-on:click="getRoute()">{{list.title}}</a>
+					<a :href="list.link" :class="{'active': list.link == route}" v-on:click="">{{list.title}}</a>
 				</li>
 			</ul>
 		</div>
@@ -26,8 +26,8 @@
 					link: '#/painel-de-controle'
 				},
 				{
-					title: 'Áreas',
-					link: '#/areas'
+					title: 'Setores',
+					link: '#/setores'
 				},
 				{
 					title: 'Opções',
