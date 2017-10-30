@@ -10,7 +10,11 @@
 		<div v-else>
 			<div class="col-xs-12">
 				<div class="painelcontrole__title">
-					<h3>Painel de Controle</h3>
+					<h3>Painel de Controle
+						<span class="pull-right" v-if="btnRefresh">
+							<button class="btn btn-warning btn-md" v-on:click="refreshData()">Recarregar Dados</button>
+						</span>
+					</h3>
 				</div>
 			</div>
 			<div class="col-xs-12">
@@ -49,46 +53,56 @@ export default {
 		return {
 			loading: true,
 			data: {},
-			titles: []
+			dataLocal: '',
+			btnRefresh: false
 		}
 	},
 	mounted() {
 		var vm = this;
+
+		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
+
 		Firebase.auth().onAuthStateChanged((user) => {
 			setTimeout(() => {
-				if (user) {
+				if (user && vm.dataLocal != null) {
+					vm.loadingDataLocal()
+				} else if (user && vm.dataLocal == null ) {
 					vm.loadingData();
-				} else {
-					vm.$router.push('/')
+				} 
+				else {
+					vm.$router.push('/');
 				}
 			}, 1500);
 		});
 	},
 	methods: {
+		loadingDataLocal: function() {
+			this.data = this.dataLocal;
+			this.loading = false;
+			this.btnRefresh = true;
+			console.log('loading localStorage data')
+		},
 		loadingData: function() {
 			var vm = this;
 			let url = config.databaseURL+'/.json';
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
+				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
+				this.btnRefresh = true;
 				console.log(vm.data)
+				console.log('loading firebase data')
 				console.log( Object.keys(vm.data.Produto) )
 				vm.loading = false;
 			}, response => {
 				console.log('Error: '+response)
 			});
-			// $.ajax({
-			// 	url: url,
-			// 	method: 'GET'
-			// })
-			// .done(function(data) {
-			// 	console.log(data);
-				// if( vm.user == true ) {
-				// 	vm.loading = false;
-				// }
-			// })
-			// .fail(function(xhr) {
-			// 	console.log('error', xhr);
-			// });
+		},
+		refreshData: function() {
+			this.loading = true;
+			this.btnRefresh = false;
+			setTimeout(() => {
+				this.loadingData();
+			}, 800);
 		}
 	}
 }

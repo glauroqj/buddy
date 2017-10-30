@@ -13,10 +13,11 @@ import VueResource from 'vue-resource'
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
 
-/*components*/
-import Login from './components/Login.vue'
-import PanelControl from './components/PanelControl.vue'
+/* pages */
+import Login from './pages/Login.vue'
+import PanelControl from './pages/PanelControl.vue'
 
+/*components*/
 import Loading from './components/Loading.vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
@@ -29,7 +30,7 @@ Vue.use(VueResource);
 let Options = {
 	theme: 'primary',
 	position: 'top-right',
-	duration: 3000
+	duration: 5000
 }
 Vue.use(Toasted, Options)
 
