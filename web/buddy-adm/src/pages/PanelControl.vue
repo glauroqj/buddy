@@ -20,6 +20,14 @@
 			<div class="col-xs-12">
 				<div class="painelcontrole__dashboard">
 					<div class="painelcontrole__dashboard__title">
+						<ul class="list-unstyled">
+							<li>
+								<vue-chart
+								packages="packages"
+								chart-type="LineChart"
+								></vue-chart>
+							</li>
+						</ul>
 						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
 							<h2>{{index}}</h2>
 							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
@@ -54,11 +62,19 @@ export default {
 			loading: true,
 			data: {},
 			dataLocal: '',
-			btnRefresh: false
+			btnRefresh: false,
+			packages: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 		}
 	},
 	mounted() {
 		var vm = this;
+
+		var options = {
+			width: 400,
+			height: 240,
+			title: 'Toppings I Like On My Pizza',
+			colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+		};
 
 		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
 
@@ -78,6 +94,7 @@ export default {
 	methods: {
 		loadingDataLocal: function() {
 			this.data = this.dataLocal;
+			this.packages.push(this.data);
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
