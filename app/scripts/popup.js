@@ -63,7 +63,7 @@
         })
         .done(function(data) {
           vm.gif = data.data;
-          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+          // chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
         })
         .fail(function(xhr) {
           console.log('error', xhr);
