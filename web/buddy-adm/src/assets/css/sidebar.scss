@@ -13,7 +13,7 @@
 			-o-transition: all 0.5s ease-out;
 			transition: all 0.5s ease-out;
 		}
-		a:hover {
+		a:hover, a:focus {
 			text-decoration: none;
 			background-color: #eee;
 			color: #323232;
