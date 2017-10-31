@@ -23,8 +23,9 @@
 						<ul class="list-unstyled">
 							<li>
 								<vue-chart
-								packages="packages"
 								chart-type="LineChart"
+								:columns="columns"
+								:rows="titles"
 								></vue-chart>
 							</li>
 						</ul>
@@ -59,22 +60,45 @@ export default {
 	},
 	data() {
 		return {
+			columns: [{
+				'type': 'string',
+				'label': 'Pontos'
+			}, {
+				'type': 'number',
+				'label': 'Media'
+			}],
+			// rows: [
+			// ['2004', 1000, 400],
+			// ['2005', 1170, 460],
+			// ['2006', 660, 1120],
+			// ['2007', 1030, 540],
+			// ['2006', 660, 1120],
+			// ['2007', 1030, 540]
+			// ],
+			options: {
+				title: 'Média Geral',
+				hAxis: {
+					title: 'Pontos',
+					minValue: '1',
+					maxValue: '5'
+				},
+				vAxis: {
+					title: 'Setores',
+					minValue: 1,
+					maxValue: 5
+				},
+				height: 500
+			},
 			loading: true,
 			data: {},
 			dataLocal: '',
 			btnRefresh: false,
-			packages: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+			titles: [],
+			media: []
 		}
 	},
 	mounted() {
 		var vm = this;
-
-		var options = {
-			width: 400,
-			height: 240,
-			title: 'Toppings I Like On My Pizza',
-			colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
-		};
 
 		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
 
@@ -93,11 +117,34 @@ export default {
 	},
 	methods: {
 		loadingDataLocal: function() {
+			var vm = this;
 			this.data = this.dataLocal;
-			this.packages.push(this.data);
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
+
+			for ( let key in this.data ) {
+				console.log(key)
+				let cont = 0;
+				for ( let item in this.data[key] ) {
+					// console.log( this.data[key][item].vote )
+					for ( let subitem in this.data[key][item].vote ) {
+						// console.log( this.data[key][item].vote[subitem].vote )
+						let vote = this.data[key][item].vote[subitem].vote
+						console.log(vote)
+					}
+
+					// let a = {
+					// 	'setor': key,
+					// 	'valor': this.data[key][item].vote
+					// }
+					// vm.media.push(a)
+				} /* for 2 */
+
+				let colum = [key,4]
+				vm.titles.push( colum );
+				// console.log( this.data[key] )
+			} /* for 1 */
 		},
 		loadingData: function() {
 			var vm = this;
