@@ -81,7 +81,7 @@ export default {
 		Firebase.auth().onAuthStateChanged((user) => {
 			setTimeout(() => {
 				if (user && vm.dataLocal != null) {
-					vm.loadingDataLocal()
+					vm.loadingDataLocal();
 				} else if (user && vm.dataLocal == null ) {
 					vm.$router.push('/painel-de-controle');
 					vm.$toasted.show('Atualizando dados, acesso setores novamente por gentileza!');

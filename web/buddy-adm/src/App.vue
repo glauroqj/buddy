@@ -54,7 +54,6 @@ export default {
           vm.statusNavbar = true;
           vm.statusSidebar = true;
           vm.loading = false;
-          vm.$router.push('/painel-de-controle');
         } else {
           vm.loading = false;
           vm.statusNavbar = false;
