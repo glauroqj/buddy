@@ -32,7 +32,11 @@
 						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
 							<h2>{{index}}</h2>
 							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
-								<div><b>{{index}}</b></div>
+								<div>
+									<span><b>{{index}}</b></span>
+									<span><h6><b>Quantidade de votos do dia: {{subitem.quantVotes}}</b></h6></span>
+									<span><h6><b>Media de votos do dia: {{subitem.mediaDay}}</b></h6></span>
+								</div>
 								<ul class="list-inline">
 									<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
 										<span>Voto: {{subSubitem.vote}}</span>
@@ -122,29 +126,7 @@ export default {
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
-
-			for ( let key in this.data ) {
-				console.log(key)
-				let cont = 0;
-				for ( let item in this.data[key] ) {
-					// console.log( this.data[key][item].vote )
-					for ( let subitem in this.data[key][item].vote ) {
-						// console.log( this.data[key][item].vote[subitem].vote )
-						let vote = this.data[key][item].vote[subitem].vote
-						console.log(vote)
-					}
-
-					// let a = {
-					// 	'setor': key,
-					// 	'valor': this.data[key][item].vote
-					// }
-					// vm.media.push(a)
-				} /* for 2 */
-
-				let colum = [key,4]
-				vm.titles.push( colum );
-				// console.log( this.data[key] )
-			} /* for 1 */
+			this.calculateInfos(this.data)
 		},
 		loadingData: function() {
 			var vm = this;
@@ -167,6 +149,51 @@ export default {
 			setTimeout(() => {
 				this.loadingData();
 			}, 800);
+		},
+		calculateInfos: function(data) {
+			var vm = this;
+
+			for ( let key in data ) {
+				/* key = setores */
+				console.log(key)
+				for ( let item in data[key] ) {
+					let vote = 0;
+					let voteTotal = 0;
+					let quantVotes = 0;
+					let newValue = 0;
+					/* item = data */
+					console.log('data: '+item)
+					for ( let subitem in data[key][item].vote ) {
+						/* subitem = key object */
+						newValue = data[key][item];
+
+						vote = data[key][item].vote[subitem].vote;
+						console.log('Vote: '+vote)
+						voteTotal = vote + voteTotal;
+						/* number max of votes */
+						quantVotes = Object.keys(data[key][item].vote);
+					} /* for 3 */
+					console.log('Vote Total: '+voteTotal)
+					console.log('Quantidade de votos: '+quantVotes.length )
+
+					/* insert new value on object | newValue */
+					newValue.voteTotal = voteTotal;
+					newValue.quantVotes = quantVotes.length;
+					newValue.mediaDay = voteTotal / quantVotes.length;
+
+					// let a = {
+					// 	'setor': key,
+					// 	'valor': this.data[key][item].vote
+					// }
+					// vm.media.push(a)
+
+				} /* for 2 */
+
+				let colum = [key,4]
+				vm.titles.push( colum );
+				// console.log( this.data[key] )
+			} /* for 1 */
+
 		}
 	}
 }
