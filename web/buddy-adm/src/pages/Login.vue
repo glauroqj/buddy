@@ -46,6 +46,16 @@ export default {
 		}
 	},
 	mounted() {
+		var vm = this;
+		Firebase.auth().onAuthStateChanged((user) => {
+			setTimeout(() => {
+				if (user) {
+					vm.$router.push('/painel-de-controle');
+				} else {
+					vm.$router.push('/');
+				}
+			}, 50);
+		});
 	},
 	methods: {
 		sendLogin: function() {

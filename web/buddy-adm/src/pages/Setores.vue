@@ -10,28 +10,45 @@
 		<div v-else>
 			<div class="col-xs-12">
 				<div class="setores__title">
-					<h3>Setores
-						<span class="pull-right" v-if="btnRefresh">
-							<button class="btn btn-warning btn-md" v-on:click="refreshData()">Recarregar Dados</button>
-						</span>
-					</h3>
+					<h3>Setores</h3>
 				</div>
 			</div>
 			<div class="col-xs-12">
 				<div class="setores__dashboard">
 					<div class="setores__dashboard__title">
-						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
-							<h2>{{index}}</h2>
-							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
-								<div><b>{{index}}</b></div>
-								<ul class="list-inline">
-									<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
-										<span>Voto: {{subSubitem.vote}}</span>
-									</li>
-								</ul>
-								<br>
+
+						<ul class="nav nav-tabs">
+							<li class="" v-for="(item, index, key) in dataLocal">
+								<a :id="key" v-on:click="showTab(key)">{{index}}</a>
 							</li>
 						</ul>
+						<div id="contents" class="tab-content">
+							<template v-if="tabNumber == key"  v-for="(item, index, key) in dataLocal">
+								
+							</template>
+
+<!-- 							<div class="tab-pane fade" :id="'#'+key" v-for="(item, index, key) in dataLocal" :index="index" :item="item">
+								<h2>{{index}}</h2>
+								
+								<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
+									<div>
+										<span><b>{{index}}</b></span>
+									</div>
+									<ul class="list-inline">
+										<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
+											<span>Voto: {{subSubitem.vote}}</span>
+										</li>
+									</ul>
+									<div>
+										<span><h6>Quantidade de votos do dia: <b>{{subitem.quantVotesDay}}</b></h6></span>
+										<span><h6>Media de votos do dia: <b>{{subitem.mediaDay}}</b></h6></span>
+									</div>
+									<br>
+								</li>
+
+							</div> -->
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -52,23 +69,39 @@ export default {
 	data() {
 		return {
 			loading: true,
+			dataLocal: {},
+			tabNumber: null
 		}
 	},
 	mounted() {
 		var vm = this;
 
+		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
+
 		Firebase.auth().onAuthStateChanged((user) => {
 			setTimeout(() => {
-				if (user ) {
-					// vm.loadingDataLocal()
-				} else {
+				if (user && vm.dataLocal != null) {
+					vm.loadingDataLocal()
+				} else if (user && vm.dataLocal == null ) {
+					vm.$router.push('/painel-de-controle');
+					vm.$toasted.show('Atualizando dados, acesso setores novamente por gentileza!');
+				} 
+				else {
 					vm.$router.push('/');
 				}
 			}, 1500);
 		});
 	},
 	methods: {
-
+		loadingDataLocal: function() {
+			var vm = this;
+			this.loading = false;
+			console.log('loading localStorage data')
+		},
+		showTab: function(key) {
+			var vm = this;
+			vm.tabNumber = key;
+		}
 	}
 }
 </script>

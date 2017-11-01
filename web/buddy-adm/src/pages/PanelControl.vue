@@ -34,14 +34,16 @@
 							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
 								<div>
 									<span><b>{{index}}</b></span>
-									<span><h6><b>Quantidade de votos do dia: {{subitem.quantVotes}}</b></h6></span>
-									<span><h6><b>Media de votos do dia: {{subitem.mediaDay}}</b></h6></span>
 								</div>
 								<ul class="list-inline">
 									<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
 										<span>Voto: {{subSubitem.vote}}</span>
 									</li>
 								</ul>
+								<div>
+									<span><h6>Quantidade de votos do dia: <b>{{subitem.quantVotesDay}}</b></h6></span>
+									<span><h6>Media de votos do dia: <b>{{subitem.mediaDay}}</b></h6></span>
+								</div>
 								<br>
 							</li>
 						</ul>
@@ -158,8 +160,10 @@ export default {
 				console.log(key)
 				for ( let item in data[key] ) {
 					let vote = 0;
-					let voteTotal = 0;
-					let quantVotes = 0;
+					let voteTotalDay = 0;
+					let voteTotalMonth = 0;
+					let quantVotesDay = 0;
+					let quantVotesMonth = 0;
 					let newValue = 0;
 					/* item = data */
 					console.log('data: '+item)
@@ -169,17 +173,18 @@ export default {
 
 						vote = data[key][item].vote[subitem].vote;
 						console.log('Vote: '+vote)
-						voteTotal = vote + voteTotal;
+						voteTotalDay = vote + voteTotalDay;
 						/* number max of votes */
-						quantVotes = Object.keys(data[key][item].vote);
+						quantVotesDay = Object.keys(data[key][item].vote);
 					} /* for 3 */
-					console.log('Vote Total: '+voteTotal)
-					console.log('Quantidade de votos: '+quantVotes.length )
+					console.log('Vote Total: '+voteTotalDay)
+					console.log('Quantidade de votos: '+quantVotesDay.length )
 
 					/* insert new value on object | newValue */
-					newValue.voteTotal = voteTotal;
-					newValue.quantVotes = quantVotes.length;
-					newValue.mediaDay = voteTotal / quantVotes.length;
+					newValue.voteTotalDay = voteTotalDay;
+					newValue.quantVotesDay = quantVotesDay.length;
+					let mediaDay = (voteTotalDay / quantVotesDay.length);
+					newValue.mediaDay = mediaDay.toFixed(1);
 
 					// let a = {
 					// 	'setor': key,
