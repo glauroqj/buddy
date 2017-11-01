@@ -20,10 +20,23 @@
 			<div class="col-xs-12">
 				<div class="painelcontrole__dashboard">
 					<div class="painelcontrole__dashboard__title">
+						<ul class="list-unstyled">
+							<li>
+								<vue-chart
+								chart-type="LineChart"
+								:columns="columns"
+								:rows="titles"
+								></vue-chart>
+							</li>
+						</ul>
 						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
 							<h2>{{index}}</h2>
 							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
-								<div><b>{{index}}</b></div>
+								<div>
+									<span><b>{{index}}</b></span>
+									<span><h6><b>Quantidade de votos do dia: {{subitem.quantVotes}}</b></h6></span>
+									<span><h6><b>Media de votos do dia: {{subitem.mediaDay}}</b></h6></span>
+								</div>
 								<ul class="list-inline">
 									<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
 										<span>Voto: {{subSubitem.vote}}</span>
@@ -51,10 +64,41 @@ export default {
 	},
 	data() {
 		return {
+			columns: [{
+				'type': 'string',
+				'label': 'Pontos'
+			}, {
+				'type': 'number',
+				'label': 'Media'
+			}],
+			// rows: [
+			// ['2004', 1000, 400],
+			// ['2005', 1170, 460],
+			// ['2006', 660, 1120],
+			// ['2007', 1030, 540],
+			// ['2006', 660, 1120],
+			// ['2007', 1030, 540]
+			// ],
+			options: {
+				title: 'Média Geral',
+				hAxis: {
+					title: 'Pontos',
+					minValue: '1',
+					maxValue: '5'
+				},
+				vAxis: {
+					title: 'Setores',
+					minValue: 1,
+					maxValue: 5
+				},
+				height: 500
+			},
 			loading: true,
 			data: {},
 			dataLocal: '',
-			btnRefresh: false
+			btnRefresh: false,
+			titles: [],
+			media: []
 		}
 	},
 	mounted() {
@@ -77,10 +121,12 @@ export default {
 	},
 	methods: {
 		loadingDataLocal: function() {
+			var vm = this;
 			this.data = this.dataLocal;
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
+			this.calculateInfos(this.data)
 		},
 		loadingData: function() {
 			var vm = this;
@@ -103,6 +149,51 @@ export default {
 			setTimeout(() => {
 				this.loadingData();
 			}, 800);
+		},
+		calculateInfos: function(data) {
+			var vm = this;
+
+			for ( let key in data ) {
+				/* key = setores */
+				console.log(key)
+				for ( let item in data[key] ) {
+					let vote = 0;
+					let voteTotal = 0;
+					let quantVotes = 0;
+					let newValue = 0;
+					/* item = data */
+					console.log('data: '+item)
+					for ( let subitem in data[key][item].vote ) {
+						/* subitem = key object */
+						newValue = data[key][item];
+
+						vote = data[key][item].vote[subitem].vote;
+						console.log('Vote: '+vote)
+						voteTotal = vote + voteTotal;
+						/* number max of votes */
+						quantVotes = Object.keys(data[key][item].vote);
+					} /* for 3 */
+					console.log('Vote Total: '+voteTotal)
+					console.log('Quantidade de votos: '+quantVotes.length )
+
+					/* insert new value on object | newValue */
+					newValue.voteTotal = voteTotal;
+					newValue.quantVotes = quantVotes.length;
+					newValue.mediaDay = voteTotal / quantVotes.length;
+
+					// let a = {
+					// 	'setor': key,
+					// 	'valor': this.data[key][item].vote
+					// }
+					// vm.media.push(a)
+
+				} /* for 2 */
+
+				let colum = [key,4]
+				vm.titles.push( colum );
+				// console.log( this.data[key] )
+			} /* for 1 */
+
 		}
 	}
 }
