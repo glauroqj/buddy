@@ -157,7 +157,9 @@ export default {
 
 			for ( let key in data ) {
 				/* key = setores */
-				console.log(key)
+				let title = key;
+
+				// console.log(key)
 				for ( let item in data[key] ) {
 					let vote = 0;
 					let voteTotalDay = 0;
@@ -165,32 +167,28 @@ export default {
 					let quantVotesDay = 0;
 					let quantVotesMonth = 0;
 					let newValue = 0;
+					
 					/* item = data */
-					console.log('data: '+item)
+					// console.log('data: '+item)
 					for ( let subitem in data[key][item].vote ) {
 						/* subitem = key object */
+
 						newValue = data[key][item];
 
 						vote = data[key][item].vote[subitem].vote;
-						console.log('Vote: '+vote)
+						// console.log('Vote: '+vote)
 						voteTotalDay = vote + voteTotalDay;
 						/* number max of votes */
 						quantVotesDay = Object.keys(data[key][item].vote);
 					} /* for 3 */
-					console.log('Vote Total: '+voteTotalDay)
-					console.log('Quantidade de votos: '+quantVotesDay.length )
+					// console.log('Vote Total: '+voteTotalDay)
+					// console.log('Quantidade de votos: '+quantVotesDay.length )
 
 					/* insert new value on object | newValue */
 					newValue.voteTotalDay = voteTotalDay;
 					newValue.quantVotesDay = quantVotesDay.length;
 					let mediaDay = (voteTotalDay / quantVotesDay.length);
 					newValue.mediaDay = mediaDay.toFixed(1);
-
-					// let a = {
-					// 	'setor': key,
-					// 	'valor': this.data[key][item].vote
-					// }
-					// vm.media.push(a)
 
 				} /* for 2 */
 
