@@ -33,6 +33,11 @@
 			}
 		}
 
+		/* verify day and set icon */
+		if ( day == 'Saturday' || day == 'Sunday' ) { 
+			chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+		}
+
 	}, 3600000);
 
 /* 
