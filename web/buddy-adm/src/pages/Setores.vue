@@ -16,39 +16,27 @@
 			<div class="col-xs-12">
 				<div class="setores__dashboard">
 					<div class="setores__dashboard__title">
-
-						<ul class="nav nav-tabs">
-							<li class="" v-for="(item, index, key) in dataLocal">
-								<a :id="key" v-on:click="showTab(key)">{{index}}</a>
+						<ul class="nav nav-pills">
+							<li class="nav-item" v-for="(item, index, key) in dataLocal">
+								<a class="btn" :class="selected.title == index ? 'active':''" :id="key" v-on:click="findSector(index)">{{index}}</a>
 							</li>
 						</ul>
-						<div id="contents" class="tab-content">
-							<template v-if="tabNumber == key"  v-for="(item, index, key) in dataLocal">
-								
-							</template>
-
-<!-- 							<div class="tab-pane fade" :id="'#'+key" v-for="(item, index, key) in dataLocal" :index="index" :item="item">
-								<h2>{{index}}</h2>
-								
-								<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
-									<div>
-										<span><b>{{index}}</b></span>
-									</div>
-									<ul class="list-inline">
-										<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
-											<span>Voto: {{subSubitem.vote}}</span>
-										</li>
-									</ul>
-									<div>
-										<span><h6>Quantidade de votos do dia: <b>{{subitem.quantVotesDay}}</b></h6></span>
-										<span><h6>Media de votos do dia: <b>{{subitem.mediaDay}}</b></h6></span>
-									</div>
-									<br>
-								</li>
-
-							</div> -->
+					</div>
+					<div class="setores__dashboard__card">
+						<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
+							<div class="card animated fadeIn">
+								<h3 class="card-header">{{index}}</h3>
+								<div class="card-body text-muted">
+									<p>
+										Média do dia: <span class="" 
+										:class="[{'text-success':item.mediaDay >= 4.0}, {'text-muted':item.mediaDay > 3.0}, {'text-danger':item.mediaDay <= 2.5}]">{{item.mediaDay}}</span>
+									</p>
+									<p>
+										Quantidade de votos do dia: {{item.quantVotesDay}}
+									</p>
+								</div>
+							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -70,11 +58,15 @@ export default {
 		return {
 			loading: true,
 			dataLocal: {},
-			tabNumber: null
+			selected: {}
 		}
 	},
 	mounted() {
 		var vm = this;
+
+		console.log(this.$parent)
+
+		// console.log(this.$route.path)
 
 		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
 
@@ -98,9 +90,15 @@ export default {
 			this.loading = false;
 			console.log('loading localStorage data')
 		},
-		showTab: function(key) {
+		findSector: function(key) {
 			var vm = this;
-			vm.tabNumber = key;
+			console.log(key)
+			console.log(this.dataLocal[key])
+			this.selected = {}
+			this.selected = {
+				'title': key,
+				'data': this.dataLocal[key]
+			}
 		}
 	}
 }

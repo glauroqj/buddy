@@ -20,15 +20,6 @@
 			<div class="col-xs-12">
 				<div class="painelcontrole__dashboard">
 					<div class="painelcontrole__dashboard__title">
-						<ul class="list-unstyled">
-							<li>
-								<vue-chart
-								chart-type="LineChart"
-								:columns="columns"
-								:rows="titles"
-								></vue-chart>
-							</li>
-						</ul>
 						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
 							<h2>{{index}}</h2>
 							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
@@ -135,6 +126,7 @@ export default {
 			let url = config.databaseURL+'/.json';
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
+				this.calculateInfos(vm.data);
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
 				console.log(vm.data)

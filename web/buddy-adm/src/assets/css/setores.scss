@@ -7,6 +7,46 @@
 
 	}
 	.setores__dashboard {
+		.setores__dashboard__title {
+
+		}
+		.setores__dashboard__card {
+			margin-top: 0px;
+			border-top: 1px solid #eee;
+			padding: 30px 0px 10px;
+			.card {
+				position: relative;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-box-direction: normal;
+				-webkit-flex-direction: column;
+				-ms-flex-direction: column;
+				flex-direction: column;
+				min-width: 0;
+				word-wrap: break-word;
+				background-color: #fff;
+				-webkit-background-clip: border-box;
+				background-clip: border-box;
+				border: 1px solid rgba(0, 0, 0, 0.125);
+				border-radius: 0.25rem;
+				margin-bottom: 25px;
+				.card-header {
+					padding: 0.75rem 1.25rem;
+					margin: 0;
+					background-color: rgba(0, 0, 0, 0.03);
+					border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+				}
+				.card-body {
+					padding: 0.75rem 1.25rem;
+					p {
+						margin-bottom: 0px;
+					}
+				}
+			}
+		}
 		
 	}
 }

@@ -9,7 +9,6 @@ import {config} from './firebase.js'
 import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import VueCharts from 'vue-charts'
 
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
@@ -35,7 +34,6 @@ let Options = {
 	duration: 5000
 }
 Vue.use(Toasted, Options);
-Vue.use(VueCharts);
 
 Vue.config.productionTip = false
 
