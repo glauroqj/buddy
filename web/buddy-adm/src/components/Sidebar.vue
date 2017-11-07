@@ -43,7 +43,6 @@
 		},
 		mounted() {
 			var vm = this;
-
 		},
 		methods: {
 		}
