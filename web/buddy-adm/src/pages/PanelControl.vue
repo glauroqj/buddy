@@ -49,6 +49,7 @@
 import Firebase from 'firebase'
 import {config} from '../firebase.js'
 import loading from '../components/Loading.vue'
+import moment from 'moment'
 
 export default {
 	name: 'PanelControl',
@@ -57,35 +58,6 @@ export default {
 	},
 	data() {
 		return {
-			columns: [{
-				'type': 'string',
-				'label': 'Pontos'
-			}, {
-				'type': 'number',
-				'label': 'Media'
-			}],
-			// rows: [
-			// ['2004', 1000, 400],
-			// ['2005', 1170, 460],
-			// ['2006', 660, 1120],
-			// ['2007', 1030, 540],
-			// ['2006', 660, 1120],
-			// ['2007', 1030, 540]
-			// ],
-			options: {
-				title: 'Média Geral',
-				hAxis: {
-					title: 'Pontos',
-					minValue: '1',
-					maxValue: '5'
-				},
-				vAxis: {
-					title: 'Setores',
-					minValue: 1,
-					maxValue: 5
-				},
-				height: 500
-			},
 			loading: true,
 			data: {},
 			dataLocal: '',
@@ -158,15 +130,12 @@ export default {
 					let voteTotalMonth = 0;
 					let quantVotesDay = 0;
 					let quantVotesMonth = 0;
-					let newValue = 0;
-					
+					let newValue = 0;					
 					/* item = data */
 					// console.log('data: '+item)
 					for ( let subitem in data[key][item].vote ) {
 						/* subitem = key object */
-
 						newValue = data[key][item];
-
 						vote = data[key][item].vote[subitem].vote;
 						// console.log('Vote: '+vote)
 						voteTotalDay = vote + voteTotalDay;
@@ -176,7 +145,14 @@ export default {
 					// console.log('Vote Total: '+voteTotalDay)
 					// console.log('Quantidade de votos: '+quantVotesDay.length )
 
+					moment.locale('pt-br');
+					item = item.replace(/-/g, '/');
+					let month = moment(item, 'DD/MM/YYYY', true).format();
+					month = moment(month).format('MMMM')
+
+
 					/* insert new value on object | newValue */
+					newValue.voteMonth = month;
 					newValue.voteTotalDay = voteTotalDay;
 					newValue.quantVotesDay = quantVotesDay.length;
 					let mediaDay = (voteTotalDay / quantVotesDay.length);

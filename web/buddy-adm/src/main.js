@@ -10,6 +10,7 @@ import Toasted from 'vue-toasted'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+
 import './assets/js/jquery.min.js'
 import './assets/js/bootstrap.min.js'
 
@@ -22,7 +23,6 @@ import Setores from './pages/Setores.vue'
 import Loading from './components/Loading.vue'
 import Navbar from './components/Navbar.vue'
 import Sidebar from './components/Sidebar.vue'
-
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
