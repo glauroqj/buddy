@@ -118,6 +118,7 @@ export default {
 		},
 		calculateInfos: function(data) {
 			var vm = this;
+			moment.locale('pt-br');
 
 			for ( let key in data ) {
 				/* key = setores */
@@ -145,12 +146,10 @@ export default {
 					// console.log('Vote Total: '+voteTotalDay)
 					// console.log('Quantidade de votos: '+quantVotesDay.length )
 
-					moment.locale('pt-br');
 					item = item.replace(/-/g, '/');
 					let month = moment(item, 'DD/MM/YYYY', true).format();
-					month = moment(month).format('MMMM')
-
-
+					month = moment(month).format('MMMM');
+					console.log(month)
 					/* insert new value on object | newValue */
 					newValue.voteMonth = month;
 					newValue.voteTotalDay = voteTotalDay;

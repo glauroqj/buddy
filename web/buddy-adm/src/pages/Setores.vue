@@ -25,7 +25,7 @@
 					<div class="setores__dashboard__card">
 						<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
 							<div class="card animated fadeIn">
-								<h3 class="card-header">{{index | moment("dddd/MMMM/YYYY") }}</h3>
+								<h3 class="card-header">{{index}}</h3>
 								<div class="card-body text-muted">
 									<p>
 										Média do dia: <span class="" 
