@@ -11,42 +11,54 @@
 </template>
 
 <script>
-	import Firebase from 'firebase'
-	import {config} from '../firebase.js'
-	
-	export default {
-		name: 'sideBar',
-		props: {
-			statusSidebar: Boolean
-		},
-		data() {
-			return {
-				lists: [{
-					title: 'Painel de Controle',
-					link: '#/painel-de-controle'
-				},
-				{
-					title: 'Setores',
-					link: '#/setores'
-				},
-				{
-					title: 'Opções',
-					link: '#/opcoes'
-				}
-				],
-				route: ''
+import Firebase from 'firebase'
+import {config} from '../firebase.js'
+
+export default {
+	name: 'sideBar',
+	props: {
+		statusSidebar: Boolean
+	},
+	data() {
+		return {
+			lists: [{
+				title: 'Painel de Controle',
+				link: '#/painel-de-controle'
+			},
+			{
+				title: 'Setores',
+				link: '#/setores'
+			},
+			{
+				title: 'Opções',
+				link: '#/opcoes'
 			}
-		},
-		computed: {
-		},
-		watch: {
-		},
-		mounted() {
+			],
+			route: ''
+		}
+	},
+	computed: {
+	},
+	watch: {
+	},
+	mounted() {
+		var vm = this;
+		let a = window.location.hash;
+		vm.route = a;
+		this.$root.$on('verify-route', ()=> {
+			vm.activeMenu()
+		});
+	},
+	methods: {
+		activeMenu: function() {
 			var vm = this;
-		},
-		methods: {
+				let a = window.location.hash;
+				vm.route = a;
+			setTimeout(() => {
+			}, 350);
 		}
 	}
+}
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

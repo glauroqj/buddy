@@ -14,6 +14,9 @@
 						<span class="pull-right" v-if="btnRefresh">
 							<button class="btn btn-warning btn-md" v-on:click="refreshData()">Recarregar Dados</button>
 						</span>
+						<span class="pull-right">
+							<button class="btn btn-info btn-md" v-on:click="menu()">Atualizar Menu</button>
+						</span>
 					</h3>
 				</div>
 			</div>
@@ -69,6 +72,8 @@ export default {
 	mounted() {
 		var vm = this;
 
+		this.$root.$emit('verify-route');
+
 		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
 
 		Firebase.auth().onAuthStateChanged((user) => {
@@ -85,6 +90,10 @@ export default {
 		});
 	},
 	methods: {
+		menu: function() {
+			var vm = this;
+			this.$root.$emit('verify-route');
+		},
 		loadingDataLocal: function() {
 			var vm = this;
 			this.data = this.dataLocal;
@@ -103,7 +112,6 @@ export default {
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
 				vm.loading = false;
-				console.log(vm.data)
 				console.log('loading firebase data')
 			}, response => {
 				if(response.status != 200) {
@@ -151,7 +159,7 @@ export default {
 					item = item.replace(/-/g, '/');
 					let month = moment(item, 'DD/MM/YYYY', true).format();
 					month = moment(month).format('MMMM');
-					console.log(month)
+					// console.log(month)
 					/* insert new value on object | newValue */
 					newValue.voteMonth = month;
 					newValue.voteTotalDay = voteTotalDay;
