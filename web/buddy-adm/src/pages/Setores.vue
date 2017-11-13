@@ -73,7 +73,7 @@ export default {
 	mounted() {
 		var vm = this;
 
-		// console.log(this.$route.path)
+		this.$root.$emit('verify-route');
 
 		vm.dataLocal = JSON.parse( localStorage.getItem('Buddy-Admin-Votes') );
 
