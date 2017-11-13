@@ -99,14 +99,16 @@ export default {
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
 				this.calculateInfos(vm.data);
+				localStorage.removeItem('Buddy-Admin-Votes');
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
+				vm.loading = false;
 				console.log(vm.data)
 				console.log('loading firebase data')
-				console.log( Object.keys(vm.data.Produto) )
-				vm.loading = false;
 			}, response => {
-				console.log('Error: '+response)
+				if(response.status != 200) {
+					console.log('Error: '+response)
+				}
 			});
 		},
 		refreshData: function() {
