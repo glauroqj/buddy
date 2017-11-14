@@ -169,8 +169,6 @@ export default {
 
 				} /* for 2 */
 
-				let colum = [key,4]
-				vm.titles.push( colum );
 				// console.log( this.data[key] )
 			} /* for 1 */
 

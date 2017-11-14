@@ -128,16 +128,21 @@
         var vm = this;
         
         this.vote = true;
-        let date = moment().format('DD-MM-YYYY');
+        moment().locale('pt-br');
+        let day = moment().format('DD');
         let dateFormat = moment().format('DD/MM/YYYY');
-        let month = moment().format('MMM');
-        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+date+'.json';
+        let month = moment().format('MMMM');
+        let year = moment().format('YYYY');
+        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
         let vote = {
-          'vote': value
+          'vote': value,
+          'month': month,
+          'date': dateFormat
         };
         let lastVote = {
           'day': dateFormat
         };
+        // console.log(vote)
         this.loading = true;
         $.ajax({
           url: urlSend,
