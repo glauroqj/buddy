@@ -14,31 +14,27 @@
 						<span class="pull-right" v-if="btnRefresh">
 							<button class="btn btn-warning btn-md" v-on:click="refreshData()">Recarregar Dados</button>
 						</span>
-						<span class="pull-right">
-							<button class="btn btn-info btn-md" v-on:click="menu()">Atualizar Menu</button>
-						</span>
 					</h3>
 				</div>
 			</div>
 			<div class="col-xs-12">
 				<div class="painelcontrole__dashboard">
 					<div class="painelcontrole__dashboard__title">
-						<ul class="list-unstyled" v-for="(item, index) in data" :index="index" :item="item">
+						<ul class="list-unstyled" v-for="(area, index) in data" :index="index" :area="area">
 							<h2>{{index}}</h2>
-							<li v-for="(subitem, index) in item" :index="index" :subitem="subitem.vote">
-								<div>
-									<span><b>{{index}}</b></span>
+							<li v-for="(year, index) in area" :index="index" :year="year">
+								<!-- <span><b>{{index}}</b></span> -->
+								<div v-for="(month, index) in year" :index="index" :month="month">
+									<span>Mês: {{index}}</span>
+									<div v-for="(day, index, key) in month">
+										<ul class="list-inline">
+											<li v-for="(item, index, key) in day" :key="key">
+												<div>Dia: {{item.date}}</div>
+												<div>Voto: {{item.vote}}</div>
+											</li>
+										</ul>
+									</div>
 								</div>
-								<ul class="list-inline">
-									<li v-for="(subSubitem, index) in subitem.vote" :index="index" :subSubitem="subSubitem">
-										<span>Voto: {{subSubitem.vote}}</span>
-									</li>
-								</ul>
-								<div>
-									<span><h6>Quantidade de votos do dia: <b>{{subitem.quantVotesDay}}</b></h6></span>
-									<span><h6>Media de votos do dia: <b>{{subitem.mediaDay}}</b></h6></span>
-								</div>
-								<br>
 							</li>
 						</ul>
 					</div>
@@ -100,14 +96,14 @@ export default {
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
-			this.calculateInfos(this.data)
+			// this.calculateInfos(this.data)
 		},
 		loadingData: function() {
 			var vm = this;
 			let url = config.databaseURL+'/.json';
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
-				this.calculateInfos(vm.data);
+				// this.calculateInfos(vm.data);
 				localStorage.removeItem('Buddy-Admin-Votes');
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
