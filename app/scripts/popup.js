@@ -131,7 +131,7 @@
         let date = moment().format('DD-MM-YYYY');
         let dateFormat = moment().format('DD/MM/YYYY');
         let month = moment().format('MMM');
-        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+date+'/vote.json';
+        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+date+'.json';
         let vote = {
           'vote': value
         };

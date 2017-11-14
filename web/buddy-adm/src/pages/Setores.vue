@@ -23,14 +23,6 @@
 						</ul>
 					</div>
 					<div class="setores__dashboard__card">
-						<div class="card-filter">
-							<ul class="nav nav-pills">
-								<li class="nav-item" v-for="filter in selected.month">
-									<a class="btn btn-xs" >{{filter}}</a>
-								</li>
-							</ul>
-						</div>
-
 						<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
 							<div class="card animated fadeIn">
 								<h3 class="card-header">{{index}}</h3>
@@ -107,19 +99,18 @@ export default {
 				'data': this.dataLocal[key]
 			}
 
-			let object = this.selected.data;
-			let monthObj = ['todos'];
-			vm.lastMonth = '';
-			/* verify month quantity */
-			for ( let day in object ) {
-				if ( vm.lastMonth != object[day].voteMonth  ) {
-					vm.lastMonth = object[day].voteMonth;
-					monthObj.push( object[day].voteMonth );
-					vm.selected.month = monthObj;
-				}
-			}/* for 1 */
+			// let object = this.selected.data;
+			// let monthObj = ['todos'];
+			// vm.lastMonth = '';
+			// /* verify month quantity */
+			// for ( let day in object ) {
+			// 	if ( vm.lastMonth != object[day].voteMonth  ) {
+			// 		vm.lastMonth = object[day].voteMonth;
+			// 		monthObj.push( object[day].voteMonth );
+			// 		vm.selected.month = monthObj;
+			// 	}
+			// }/* for 1 */
 
-			console.log(vm.selected.month)
 
 		}
 	}
