@@ -54,7 +54,7 @@
 
       /* verify weekend */
       let day = moment().format('dddd');
-      if ( day == 'Saturday' || day == 'Sunday' ) { 
+      if ( day == 'Saturday' || day == 'Sunday' || day == 'sábado' || day == 'domingo' ) { 
         let url = 'https://api.giphy.com/v1/gifs/random?api_key=xmSEm4iAty6mMRGFUm4k3bErZeqmYi1w&tag=happy&rating=G';
         $.ajax({
           url: url,
