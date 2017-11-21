@@ -35,4 +35,9 @@ https://github.com/webpack/webpack
 https://github.com/vuejs/vue-loader
 https://github.com/webpack-contrib/sass-loader
 
+- Lib deep-get-set js
+
+https://github.com/acstll/deep-get-set
+
+
 ```

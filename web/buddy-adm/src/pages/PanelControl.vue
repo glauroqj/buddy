@@ -64,7 +64,8 @@ export default {
 			btnRefresh: false,
 			titles: [],
 			media: [],
-			keys: []
+			sectors: [],
+			totalVotes: {}
 		}
 	},
 	mounted() {
@@ -127,21 +128,19 @@ export default {
 		calculateInfos: function(data) {
 			var vm = this;
 			moment.locale('pt-br');
-			var month = moment().format('MMMM');
-			var year = moment().format('YYYY');
-
-			console.log( deep(data, 'Produto.2017.novembro') )
+			let month = moment().format('MMMM');
+			let year = moment().format('YYYY');
 
 			for ( let key in data ) {
 				/* key = setores */
 				let title = key;
-				vm.keys = Object.keys(data);
-				vm.resumeVote(vm.keys);
-
-				for ( let year in data[key] ) {
-					
+				vm.totalVotes[key] = {
+					'data': {
+						'votes': deep(data, key+'.'+year+'.'+month),
+						'month': month,
+						'year': year
+					}
 				}
-
 			}
 
 				// for ( let item in data[key] ) {
@@ -176,14 +175,6 @@ export default {
 				// } /* for 2 */
 
 				// console.log( this.data[key] )
-
-			},
-			resumeVote: function(key) {
-				var vm = this;
-
-				for ( let day in key ) {
-
-				}
 
 			}
 		}
