@@ -12,8 +12,6 @@
 		let day = moment().format('dddd');
 		let month = moment().format('MMM');
 
-		alert(day)
-
 		let hourActual = moment().format('HH:MM');
 
 
