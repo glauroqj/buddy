@@ -49,6 +49,7 @@ import Firebase from 'firebase'
 import {config} from '../firebase.js'
 import loading from '../components/Loading.vue'
 import moment from 'moment'
+import deep from 'deep-get-set'
 
 export default {
 	name: 'PanelControl',
@@ -62,7 +63,8 @@ export default {
 			dataLocal: '',
 			btnRefresh: false,
 			titles: [],
-			media: []
+			media: [],
+			keys: []
 		}
 	},
 	mounted() {
@@ -96,14 +98,14 @@ export default {
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
-			// this.calculateInfos(this.data)
+			this.calculateInfos(this.data)
 		},
 		loadingData: function() {
 			var vm = this;
 			let url = config.databaseURL+'/.json';
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
-				// this.calculateInfos(vm.data);
+				this.calculateInfos(vm.data);
 				localStorage.removeItem('Buddy-Admin-Votes');
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
@@ -125,55 +127,70 @@ export default {
 		calculateInfos: function(data) {
 			var vm = this;
 			moment.locale('pt-br');
+			var month = moment().format('MMMM');
+			var year = moment().format('YYYY');
+
+			console.log( deep(data, 'Produto.2017.novembro') )
 
 			for ( let key in data ) {
 				/* key = setores */
 				let title = key;
+				vm.keys = Object.keys(data);
+				vm.resumeVote(vm.keys);
 
-				// console.log(key)
-				for ( let item in data[key] ) {
-					let vote = 0;
-					let voteTotalDay = 0;
-					let voteTotalMonth = 0;
-					let quantVotesDay = 0;
-					let quantVotesMonth = 0;
-					let newValue = 0;					
-					/* item = data */
-					// console.log('data: '+item)
-					for ( let subitem in data[key][item].vote ) {
-						/* subitem = key object */
-						newValue = data[key][item];
-						vote = data[key][item].vote[subitem].vote;
-						// console.log('Vote: '+vote)
-						voteTotalDay = vote + voteTotalDay;
-						/* number max of votes */
-						quantVotesDay = Object.keys(data[key][item].vote);
-					} /* for 3 */
-					// console.log('Vote Total: '+voteTotalDay)
-					// console.log('Quantidade de votos: '+quantVotesDay.length )
+				for ( let year in data[key] ) {
+					
+				}
 
-					item = item.replace(/-/g, '/');
-					let month = moment(item, 'DD/MM/YYYY', true).format();
-					month = moment(month).format('MMMM');
-					// console.log(month)
-					/* insert new value on object | newValue */
-					newValue.voteMonth = month;
-					newValue.voteTotalDay = voteTotalDay;
-					newValue.quantVotesDay = quantVotesDay.length;
-					let mediaDay = (voteTotalDay / quantVotesDay.length);
-					newValue.mediaDay = mediaDay.toFixed(1);
+			}
 
-				} /* for 2 */
+				// for ( let item in data[key] ) {
+				// 	let vote = 0;
+				// 	let quantVotesDay = 0;
+				// 	let quantVotesMonth = 0;
+				// 	let newValue = 0;
+				// 	/* item = data */
+				// 	// console.log('data: '+item)
+				// 	for ( let subitem in data[key][item][month] ) {
+				// 		/* subitem = key object */
+				// 		newValue = data[key][item];
+				// 		vote = data[key][item].vote[subitem].vote;
+				// 		// console.log('Vote: '+vote)
+				// 		voteTotalDay = vote + voteTotalDay;
+				// 		/* number max of votes */
+				// 		quantVotesDay = Object.keys(data[key][item].vote);
+				// 	}  /*for 3 */ 
+				// 	// console.log('Vote Total: '+voteTotalDay)
+				// 	// console.log('Quantidade de votos: '+quantVotesDay.length )
+
+				// 	// item = item.replace(/-/g, '/');
+				// 	// let month = moment(item, 'DD/MM/YYYY', true).format();
+
+				// 	// console.log(month)
+				// 	/* insert new value on object | newValue */
+				// 	newValue.voteTotalDay = voteTotalDay;
+				// 	newValue.quantVotesDay = quantVotesDay.length;
+				// 	let mediaDay = (voteTotalDay / quantVotesDay.length);
+				// 	newValue.mediaDay = mediaDay.toFixed(1);
+
+				// } /* for 2 */
 
 				// console.log( this.data[key] )
-			} /* for 1 */
 
+			},
+			resumeVote: function(key) {
+				var vm = this;
+
+				for ( let day in key ) {
+
+				}
+
+			}
 		}
 	}
-}
-</script>
+	</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+	<!-- Add "scoped" attribute to limit CSS to this component only -->
+	<style scoped>
 
-</style>
+	</style>
