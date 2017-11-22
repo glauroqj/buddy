@@ -111,13 +111,8 @@
       if ( date != this.lastVote.day ) {
         /* verify is valid day of week */
         localStorage.removeItem('Buddy-Vote');
-        /* localStorage.removeItem('Buddy-Last-Vote'); */
-        let login = '';
-        let vote = '';
-        login = JSON.parse( localStorage.getItem('Buddy-Login') );
-        vote = JSON.parse( localStorage.getItem('Buddy-Vote') );
       }
-        /* verify first login on buddy */
+      /* verify first login on buddy */
       // this.user = Vue.ls.get('Buddy-Login');
       // this.user = Cookies.get('Buddy-Login');
       this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
