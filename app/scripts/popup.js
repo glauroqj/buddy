@@ -139,7 +139,7 @@
       }
       this.errorForm = true;
     },
-    send: function(value) {
+    send: function(voteDay) {
       var vm = this;
       this.vote = true;
       this.loading = true;
@@ -162,12 +162,12 @@
           vm.keyDay = Object.keys(data);
           vm.someoneVote = data[vm.keyDay];
           /* call function to update datas with keyday */
-          vm.updateDataWithKeyDay(vm.keyDay);
+          vm.updateDataWithKeyDay(vm.keyDay, voteDay);
           console.log('Key day: '+vm.keyDay);
           return
         }
         /* call function to create first keyday */
-        vm.createFirstKeyDay();
+        vm.createFirstKeyDay(voteDay);
         console.log('Key day: '+vm.keyDay);
       })
       .fail(function(xhr) {
@@ -175,7 +175,8 @@
       });
 
     },
-    createFirstKeyDay: function() {
+    createFirstKeyDay: function(voteDay) {
+      var vm = this;
       /* no exist key day, create one */
       moment().locale('pt-br');
       let day = moment().format('DD');
@@ -218,9 +219,18 @@
           vm.loading = false;
         }, 800);
       });
+
     },
-    updateDataWithKeyDay: function(keyday) {
-      let urlPATCH = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'/'+[vm.keyDay]+'.json';
+    updateDataWithKeyDay: function(keyday, value) {
+      var vm = this;
+
+      moment().locale('pt-br');
+      let day = moment().format('DD');
+      let dateFormat = moment().format('DD/MM/YYYY');
+      let month = moment().format('MMMM');
+      let year = moment().format('YYYY');
+
+      let urlPATCH = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'/'+[keyday]+'.json';
       let soma = 0;
       let media = 0;
       let quantTotalVotes = 0;
@@ -261,7 +271,7 @@
       });
 
     }
-    
+
   }
 });
 /*end js*/
