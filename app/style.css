@@ -19,6 +19,10 @@
 .box__list {
 
 }
+.box__list .form-group > div select.form-control.error {
+	border-color: #e74c3c;
+	color: #e74c3c;
+}
 .box__list ul {
 
 }
@@ -81,4 +85,13 @@
 /* buttons */
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
 	outline: none;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active:hover, .btn-success.active:hover, .open>.dropdown-toggle.btn-success:hover, .btn-success:active:focus, .btn-success.active:focus, .open>.dropdown-toggle.btn-success:focus, .btn-success:active.focus, .btn-success.active.focus, .open>.dropdown-toggle.btn-success.focus,
+.btn-success:hover, .btn-success:focus, .btn-group.open .dropdown-toggle.btn-success {
+	color: #ffffff;
+	background-color: #2ECC71;
+	border-color: #208C4E;
 }

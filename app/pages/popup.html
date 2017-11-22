@@ -51,8 +51,8 @@
                       <div class="form-group">
                        <label for="inputEmail" class="col-lg-2 control-label">Setor</label>
                        <div class="col-lg-10">
-                        <select class="form-control" id="select" v-model="sector" placeholder="Escolha seu setor">
-                          <option disabled>Escolha seu setor</option>
+                        <select class="form-control" :class="{'error': errorForm}" id="select" v-model="sector" placeholder="Escolha seu setor">
+                          <option disabled value="">Escolha seu setor</option>
                           <option>Produto & Infra TI</option>
                           <option>Projetos</option>
                           <option>Customer Experience</option>
