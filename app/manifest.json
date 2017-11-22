@@ -2,7 +2,7 @@
   "content_security_policy": "script-src 'self' https://ru.aliexpress.com/ 'unsafe-eval'; object-src 'self'","name": "Buddy",
   "short_name": "Buddy",
   "description": "Helping people to live better",
-  "version": "0.0.9",
+  "version": "0.0.91",
   "manifest_version": 2,
   "icons": {
     "16": "images/buddy-16x16.png",
