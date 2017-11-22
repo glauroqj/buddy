@@ -32,7 +32,7 @@
             </template>
 
             <template v-else>
-              <div class="box__list" :class="{'w-470': vote == false}">
+              <div class="box__list" :class="{'w-470': vote == false && firstLogin == false}">
                 <template v-if="firstLogin == true">
                   <ul class="list-unstyled">
                     <li>

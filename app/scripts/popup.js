@@ -25,7 +25,9 @@
       sector: '',
       lastVote: '',
       loading: false,
-      gif: []
+      gif: [],
+      keyDay: '',
+      someoneVote: ''
     },
     watch: {
     },
@@ -41,6 +43,32 @@
           vm.firstLogin = false;
           vm.user = JSON.parse( localStorage.getItem('Buddy-Login') );
           vm.title = vm.user.name;
+
+          /* verify if exist vote and resume */
+          let day = moment().format('DD');
+          let dateFormat = moment().format('DD/MM/YYYY');
+          let month = moment().format('MMMM');
+          let year = moment().format('YYYY');
+          let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
+          $.ajax({
+            url: urlSend,
+            method: 'GET',
+            dataType: 'json',
+          })
+          .done(function(data) {
+            if( data != null) {
+              vm.keyDay = Object.keys(data);
+              vm.someoneVote = data[vm.keyDay];
+              console.log('Key day: '+vm.keyDay);
+              return
+            }
+            vm.keyDay = ''
+            console.log('Key day: '+vm.keyDay);
+          })
+          .fail(function(xhr) {
+            console.log('Error Key day: ', xhr);
+          });
+
         }
 
         vm.voted = localStorage.getItem('Buddy-Vote');
@@ -49,7 +77,6 @@
         } else {
           vm.vote = true;
         }
-
       }, 1000);
 
       /* verify weekend */
@@ -128,22 +155,69 @@
         var vm = this;
         
         this.vote = true;
+        this.loading = true;
         moment().locale('pt-br');
         let day = moment().format('DD');
         let dateFormat = moment().format('DD/MM/YYYY');
         let month = moment().format('MMMM');
         let year = moment().format('YYYY');
+
+        if( vm.keyDay ) {
+          let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'/'+[vm.keyDay]+'.json';
+          
+          let soma = 0;
+          let media = 0;
+          let quantTotalVotes = 0;
+          soma = parseInt(vm.someoneVote.vote ) + value;
+          quantTotalVotes = parseInt(vm.someoneVote.quantVotes) + 1;
+          media = (soma / quantTotalVotes).toFixed(2);
+          let vote = {
+            'vote': soma,
+            'quantVotes': quantTotalVotes,
+            'mediaVotes': media
+          };
+          let lastVote = {
+            'day': dateFormat
+          };
+
+          $.ajax({
+            url: urlSend,
+            method: 'PATCH',
+            dataType: 'json',
+            data: JSON.stringify(vote)
+          })
+          .done(function(data) {
+            console.log('success', data) 
+            localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
+            localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
+            vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
+            /* create cookie and localstorage */
+            chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+            setTimeout(()=> {
+              vm.loading = false;
+            }, 800)
+          })
+          .fail(function(xhr) {
+            console.log('error', xhr);
+            setTimeout(function() {
+              vm.loading = false;
+            }, 800)
+          });
+          return
+        } /* if key day ok */
+
         let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
         let vote = {
           'vote': value,
           'month': month,
-          'date': dateFormat
+          'date': dateFormat,
+          'quantVotes': 1,
+          'mediaVotes': value
         };
         let lastVote = {
           'day': dateFormat
         };
         // console.log(vote)
-        this.loading = true;
         $.ajax({
           url: urlSend,
           method: 'POST',
@@ -157,7 +231,7 @@
           vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
           /* create cookie and localstorage */
           chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
-          setTimeout(function() {
+          setTimeout(() => {
             vm.loading = false;
           }, 800)
         })
@@ -168,15 +242,8 @@
           }, 800)
         });
 
-        // Cookies.set('Buddy-Vote', value, {expire: 1});
-        // Vue.ls.set('Buddy-Vote', value, 15000);
-       // Vue.ls.set('Buddy-Vote', value, 86400000); /* 24 hours */
-
-      // Vue.ls.set('Buddy-Vote', value, 3600000);
-      // let bgJS = chrome.extension.getBackgroundPage();
-      // bgJS.verifyVote();
+      }
     }
-  }
-});
+  });
 /*end js*/
 })();
