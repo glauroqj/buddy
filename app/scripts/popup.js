@@ -44,32 +44,6 @@
           vm.firstLogin = false;
           vm.user = JSON.parse( localStorage.getItem('Buddy-Login') );
           vm.title = vm.user.name;
-
-          /* verify if exist vote and resume */
-          let day = moment().format('DD');
-          let dateFormat = moment().format('DD/MM/YYYY');
-          let month = moment().format('MMMM');
-          let year = moment().format('YYYY');
-          let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
-          $.ajax({
-            url: urlSend,
-            method: 'GET',
-            dataType: 'json',
-          })
-          .done(function(data) {
-            if( data != null) {
-              vm.keyDay = Object.keys(data);
-              vm.someoneVote = data[vm.keyDay];
-              console.log('Key day: '+vm.keyDay);
-              return
-            }
-            vm.keyDay = ''
-            console.log('Key day: '+vm.keyDay);
-          })
-          .fail(function(xhr) {
-            console.log('Error Key day: ', xhr);
-          });
-
         }
 
         vm.voted = localStorage.getItem('Buddy-Vote');
@@ -167,60 +141,49 @@
     },
     send: function(value) {
       var vm = this;
-
       this.vote = true;
       this.loading = true;
+
+      /* verify if exist vote and resume */
+      moment().locale('pt-br');
+      let day = moment().format('DD');
+      let dateFormat = moment().format('DD/MM/YYYY');
+      let month = moment().format('MMMM');
+      let year = moment().format('YYYY');
+      let urlGET = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
+
+      $.ajax({
+        url: urlGET,
+        method: 'GET',
+        dataType: 'json',
+      })
+      .done(function(data) {
+        if( data != null) {
+          vm.keyDay = Object.keys(data);
+          vm.someoneVote = data[vm.keyDay];
+          /* call function to update datas with keyday */
+          vm.updateDataWithKeyDay(vm.keyDay);
+          console.log('Key day: '+vm.keyDay);
+          return
+        }
+        /* call function to create first keyday */
+        vm.createFirstKeyDay();
+        console.log('Key day: '+vm.keyDay);
+      })
+      .fail(function(xhr) {
+        console.log('Error Key day: ', xhr);
+      });
+
+    },
+    createFirstKeyDay: function() {
+      /* no exist key day, create one */
       moment().locale('pt-br');
       let day = moment().format('DD');
       let dateFormat = moment().format('DD/MM/YYYY');
       let month = moment().format('MMMM');
       let year = moment().format('YYYY');
 
-      if( vm.keyDay ) {
-        let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'/'+[vm.keyDay]+'.json';
-
-        let soma = 0;
-        let media = 0;
-        let quantTotalVotes = 0;
-        soma = parseInt(vm.someoneVote.vote ) + value;
-        quantTotalVotes = parseInt(vm.someoneVote.quantVotes) + 1;
-        media = (soma / quantTotalVotes).toFixed(2);
-        let vote = {
-          'vote': soma,
-          'quantVotes': quantTotalVotes,
-          'mediaVotes': media
-        };
-        let lastVote = {
-          'day': dateFormat
-        };
-
-        $.ajax({
-          url: urlSend,
-          method: 'PATCH',
-          dataType: 'json',
-          data: JSON.stringify(vote)
-        })
-        .done(function(data) {
-          console.log('success', data) 
-          localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
-          localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
-          vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
-          /* create cookie and localstorage */
-          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
-          setTimeout(()=> {
-            vm.loading = false;
-          }, 800)
-        })
-        .fail(function(xhr) {
-          console.log('error', xhr);
-          setTimeout(function() {
-            vm.loading = false;
-          }, 800)
-        });
-        return
-      } /* if key day ok */
-
-      let urlSend = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
+      let urlPOST = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
       let vote = {
         'vote': value,
         'month': month,
@@ -231,33 +194,75 @@
       let lastVote = {
         'day': dateFormat
       };
-        // console.log(vote)
-        $.ajax({
-          url: urlSend,
-          method: 'POST',
-          dataType: 'json',
-          data: JSON.stringify(vote)
-        })
-        .done(function(data) {
-          console.log('success', data) 
-          localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
-          localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
-          vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
-          /* create cookie and localstorage */
-          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
-          setTimeout(() => {
-            vm.loading = false;
-          }, 800)
-        })
-        .fail(function(xhr) {
-          console.log('error', xhr);
-          setTimeout(function() {
-            vm.loading = false;
-          }, 800)
-        });
 
-      }
+      $.ajax({
+        url: urlPOST,
+        method: 'POST',
+        dataType: 'json',
+        data: JSON.stringify(vote)
+      })
+      .done(function(data) {
+        console.log('success', data) 
+        localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
+        localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
+        vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
+        /* create cookie and localstorage */
+        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+        setTimeout(function() {
+          vm.loading = false;
+        }, 800);
+      })
+      .fail(function(xhr) {
+        console.log('error', xhr);
+        setTimeout(function() {
+          vm.loading = false;
+        }, 800);
+      });
+    },
+    updateDataWithKeyDay: function(keyday) {
+      let urlPATCH = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'/'+[vm.keyDay]+'.json';
+      let soma = 0;
+      let media = 0;
+      let quantTotalVotes = 0;
+      soma = parseInt(vm.someoneVote.vote ) + value;
+      quantTotalVotes = parseInt(vm.someoneVote.quantVotes) + 1;
+      media = (soma / quantTotalVotes).toFixed(2);
+      let vote = {
+        'vote': soma,
+        'quantVotes': quantTotalVotes,
+        'mediaVotes': media
+      };
+      let lastVote = {
+        'day': dateFormat
+      };
+
+      $.ajax({
+        url: urlPATCH,
+        method: 'PATCH',
+        dataType: 'json',
+        data: JSON.stringify(vote)
+      })
+      .done(function(data) {
+        console.log('success', data) 
+        localStorage.setItem('Buddy-Vote', JSON.stringify(vote) );
+        localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
+        vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
+        /* create cookie and localstorage */
+        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+        setTimeout(function() {
+          vm.loading = false;
+        }, 800)
+      })
+      .fail(function(xhr) {
+        console.log('error', xhr);
+        setTimeout(function() {
+          vm.loading = false;
+        }, 800)
+      });
+
     }
-  });
+    
+  }
+});
 /*end js*/
 })();
