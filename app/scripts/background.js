@@ -16,7 +16,7 @@
 
 
 		/* verify is valid day of week */
-		if( day != 'Saturday' && day != 'Sunday' && date != lastVote.day ) {
+		if( day != 'Saturday' && day != 'Sunday' && day == 'sábado' && day == 'domingo' && date != lastVote.day ) {
 			localStorage.removeItem('Buddy-Vote');
 			/* localStorage.removeItem('Buddy-Last-Vote'); */
 			let login = '';
@@ -34,13 +34,14 @@
 		}
 
 		/* verify day and set icon */
-		if ( day == 'Saturday' || day == 'Sunday' ) { 
+		if ( day == 'Saturday' || day == 'Sunday' || day == 'sábado' || day == 'domingo' ) { 
 			chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
 		}
 
-	}, 3600000);
+	}, 1200000);
 
-/* 
+/*
+1200000 20min
 3600000 1hour 
 86400000 24hours
 */
