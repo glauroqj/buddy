@@ -4,21 +4,19 @@
 		
 		let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
 
-		if ( lastVote == null || lastVote == undefined ) {
+		if ( lastVote == null ) {
 			lastVote = 0;
 		}
 
 		let date = moment().format('DD/MM/YYYY');
 		let day = moment().format('dddd');
-		let month = moment().format('MMMM');
+		let month = moment().format('MMM');
+
 		let hourActual = moment().format('HH:MM');
 
-		/* verify day and set icon */
-		if ( day == 'Saturday' || day == 'Sunday' || day == 'sábado' || day == 'domingo' ) { 
-			chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
-			return
-		} else if ( date != lastVote.day ) {
-			/* verify is valid day of week */
+
+		/* verify is valid day of week */
+		if( day != 'Saturday' && day != 'Sunday' && day == 'sábado' && day == 'domingo' && date != lastVote.day ) {
 			localStorage.removeItem('Buddy-Vote');
 			/* localStorage.removeItem('Buddy-Last-Vote'); */
 			let login = '';
@@ -29,11 +27,15 @@
 			if ( hourActual > '09:00' && hourActual < '18:00' ) {	
 				resetVote(login, vote);
 			}
-			return
+		} else {
+			if ( hourActual > '09:00' && hourActual < '18:00' ) {	
+				resetVote(login, vote);
+			}
 		}
 
-		if ( hourActual > '09:00' && hourActual < '18:00' ) {	
-			resetVote(login, vote);
+		/* verify day and set icon */
+		if ( day == 'Saturday' || day == 'Sunday' || day == 'sábado' || day == 'domingo' ) { 
+			chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
 		}
 
 	}, 1200000);
@@ -70,8 +72,8 @@ function resetVote(login, vote) {
 					chrome.windows.create({
 						tabId: tab.id,
 						type: 'popup',
-						height: 450, 
-						width: 550,
+						height: 420, 
+						width: 500,
 						focused: true
 					});
 				});
@@ -93,8 +95,8 @@ function resetVote(login, vote) {
 							chrome.windows.create({
 								tabId: tab.id,
 								type: 'popup',
-								height: 450, 
-								width: 550,
+								height: 420, 
+								width: 500,
 								focused: true
 							});
 						});
@@ -162,6 +164,31 @@ function resetVote(login, vote) {
 		chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
 	}
 }
+
+// function voteAgain() {
+// 	let lastNotify = JSON.parse( localStorage.getItem('Buddy-Notify') );
+
+// 	if (  lastNotify === '' || lastNotify === null || lastNotify === undefined ) {
+
+// 		chrome.tabs.create({
+// 			url: chrome.extension.getURL('pages/popup.html'),
+// 			active: true
+// 		}, function(tab) {
+// 			chrome.windows.create({
+// 				tabId: tab.id,
+// 				type: 'popup',
+// 				focused: false
+// 			});
+// 			/* set localstorage value true */
+// 			let info = {
+// 				'notify': true
+// 			};
+// 			localStorage.setItem('Buddy-Notify', JSON.stringify(info) );
+// 		});
+
+// 	}
+
+// }
 
 setInterval(() => {
 	/* reset localstorage value */
