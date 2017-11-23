@@ -1,11 +1,14 @@
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
 	entry: {
-		filename: './scripts/popup.js'
+		filename: './scripts/popup.js',
+		filename: './scripts/background.js'
 	},
 	output: {
-		filename: './dist/popup.min.js'
+		filename: './dist/popup.min.js',
+		filename: './dist/background.js'
 	},
 	module: {
 		loaders: [
@@ -23,6 +26,7 @@ module.exports = {
 	},
 	plugins: [
 	new webpack.optimize.UglifyJsPlugin({
+		parallel: false,
 		compress: { warnings: false },
 		output: { comments: false }
 	})

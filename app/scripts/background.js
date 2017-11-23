@@ -1,7 +1,7 @@
 (function () {
 	/* verify vote */
 	setInterval(() => {
-		
+
 		let lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
 
 		if ( lastVote == null || lastVote == undefined ) {
