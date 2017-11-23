@@ -186,11 +186,11 @@
 
       let urlPOST = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
       let vote = {
-        'vote': value,
+        'vote': voteDay,
         'month': month,
         'date': dateFormat,
         'quantVotes': 1,
-        'mediaVotes': value
+        'mediaVotes': voteDay
       };
       let lastVote = {
         'day': dateFormat
@@ -221,7 +221,7 @@
       });
 
     },
-    updateDataWithKeyDay: function(keyday, value) {
+    updateDataWithKeyDay: function(keyday, voteDay) {
       var vm = this;
 
       moment().locale('pt-br');
@@ -234,7 +234,7 @@
       let soma = 0;
       let media = 0;
       let quantTotalVotes = 0;
-      soma = parseInt(vm.someoneVote.vote ) + value;
+      soma = parseInt(vm.someoneVote.vote ) + voteDay;
       quantTotalVotes = parseInt(vm.someoneVote.quantVotes) + 1;
       media = (soma / quantTotalVotes).toFixed(2);
       let vote = {
