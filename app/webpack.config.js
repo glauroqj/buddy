@@ -8,7 +8,7 @@ module.exports = {
 	},
 	output: {
 		filename: './dist/popup.min.js',
-		filename: './dist/background.js'
+		filename: './dist/background.min.js'
 	},
 	module: {
 		loaders: [

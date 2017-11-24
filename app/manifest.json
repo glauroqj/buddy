@@ -9,7 +9,7 @@
     "128": "images/buddy-128x128.png"
   },
   "background": {
-    "scripts": ["vendor/moment.js", "vendor/pt-br.js", "dist/background.js"],
+    "scripts": ["vendor/moment.js", "vendor/pt-br.js", "dist/background.min.js"],
     "persistent": true
   },
   "browser_action": {
