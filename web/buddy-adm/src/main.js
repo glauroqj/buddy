@@ -18,6 +18,7 @@ import './assets/js/bootstrap.min.js'
 import Login from './pages/Login.vue'
 import PanelControl from './pages/PanelControl.vue'
 import Setores from './pages/Setores.vue'
+import CustomMessage from './pages/CustomMessage.vue'
 
 /*components*/
 import Loading from './components/Loading.vue'
@@ -41,6 +42,7 @@ const routes = [
 { path: '/', component: Login },
 { path: '/painel-de-controle', auth: true, component: PanelControl },
 { path: '/setores', auth: true, component: Setores },
+{ path: '/mensagem-personalizada', auth: true, component: CustomMessage },
 { path: '*', redirect: '/painel-de-controle' }
 ]
 

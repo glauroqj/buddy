@@ -30,8 +30,8 @@ export default {
 				link: '#/setores'
 			},
 			{
-				title: 'Opções',
-				link: '#/opcoes'
+				title: 'Mensagem Personalizada',
+				link: '#/mensagem-personalizada'
 			}
 			],
 			route: ''

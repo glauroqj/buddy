@@ -78,13 +78,14 @@ export default {
 			setTimeout(() => {
 				if (user && vm.dataLocal != null) {
 					vm.loadingDataLocal();
-				} else if (user && vm.dataLocal == null ) {
+					return
+				} 
+				if (user && vm.dataLocal == null ) {
 					vm.$router.push('/painel-de-controle');
 					vm.$toasted.show('Atualizando dados, acesso setores novamente por gentileza!');
+					return
 				} 
-				else {
-					vm.$router.push('/');
-				}
+				vm.$router.push('/');
 			}, 1500);
 		});
 	},
