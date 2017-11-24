@@ -83,13 +83,14 @@ export default {
 		Firebase.auth().onAuthStateChanged((user) => {
 			setTimeout(() => {
 				if (user && vm.dataLocal != null) {
-					vm.loadingDataLocal()
-				} else if (user && vm.dataLocal == null ) {
-					vm.loadingData();
-				} 
-				else {
-					vm.$router.push('/');
+					vm.loadingDataLocal();
+					return
 				}
+				if (user && vm.dataLocal == null ) {
+					vm.loadingData();
+					return
+				} 
+				vm.$router.push('/');
 			}, 1500);
 		});
 	},
