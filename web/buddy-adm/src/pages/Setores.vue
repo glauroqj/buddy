@@ -8,32 +8,37 @@
 			</div>
 		</div>
 		<div v-else>
-			<div class="col-xs-12">
-				<div class="setores__title">
-					<h3>Setores</h3>
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="setores__title">
+						Setores
+					</div>
 				</div>
 			</div>
-			<div class="col-xs-12">
-				<div class="setores__dashboard">
-					<div class="setores__dashboard__title">
-						<ul class="nav nav-pills">
-							<li class="nav-item" v-for="(item, index, key) in dataLocal">
-								<a class="btn" :class="selected.title == index ? 'active':''" :id="key" v-on:click="findSector(index)">{{index}}</a>
-							</li>
-						</ul>
-					</div>
-					<div class="setores__dashboard__card">
-						<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
-							<div class="card animated fadeIn">
-								<h3 class="card-header">{{index}}</h3>
-								<div class="card-body text-muted">
-									<p>
-										Média do dia: <span class="" 
-										:class="[{'text-success':item.mediaDay >= 4.0}, {'text-muted':item.mediaDay > 3.0}, {'text-danger':item.mediaDay <= 2.5}]">{{item.mediaDay}}</span>
-									</p>
-									<p>
-										Quantidade de votos do dia: {{item.quantVotesDay}}
-									</p>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="setores__dashboard">
+						<div class="setores__dashboard__title">
+							<ul class="nav nav-pills">
+								<li class="nav-item" v-for="(item, index, key) in dataLocal">
+									<a class="btn" :class="selected.title == index ? 'active':''" :id="key" v-on:click="findSector(index)">{{index}}</a>
+								</li>
+							</ul>
+						</div>
+						<div class="setores__dashboard__card">
+							<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
+								<div class="card animated fadeIn">
+									<h3 class="card-header">{{index}}</h3>
+									<div class="card-body text-muted">
+										<p>
+											Média do dia: <span class="" 
+											:class="[{'text-success':item.mediaDay >= 4.0}, {'text-muted':item.mediaDay > 3.0}, {'text-danger':item.mediaDay <= 2.5}]">{{item.mediaDay}}</span>
+										</p>
+										<p>
+											Quantidade de votos do dia: {{item.quantVotesDay}}
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>

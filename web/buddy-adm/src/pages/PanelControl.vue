@@ -8,38 +8,43 @@
 			</div>
 		</div>
 		<div v-else>
-			<div class="col-xs-12">
-				<div class="painelcontrole__title">
-					<h3>Painel de Controle
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="painelcontrole__title">
+						Painel de Controle
 						<span class="pull-right" v-if="btnRefresh">
 							<button class="btn btn-warning btn-md" v-on:click="refreshData()">Recarregar Dados</button>
 						</span>
-					</h3>
+					</div>
 				</div>
 			</div>
-			<div class="col-xs-12">
-				<div class="painelcontrole__dashboard">
-					<div class="painelcontrole__dashboard__title">
-						<ul class="list-unstyled" v-for="(area, index) in data" :index="index" :area="area">
-							<h2>{{index}}</h2>
-							<li v-for="(year, index) in area" :index="index" :year="year">
-								<!-- <span><b>{{index}}</b></span> -->
-								<div v-for="(month, index) in year" :index="index" :month="month">
-									<span>Mês: {{index}}</span>
-									<div v-for="(day, index, key) in month">
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="painelcontrole__dashboard">
+						<div class="painelcontrole__dashboard__card clearfix" v-for="(area, index) in data" :index="index" :area="area">
+							<div class="card-title col-xs-12">{{index}}</div>
+							<div class="card-body col-xs-12 clearfix" v-for="(year, index) in area" :index="index" :year="year">
+								<div class="title">{{index}}</div>
+								<div class="month clearfix" v-for="(month, index) in year" :index="index" :month="month">
+									<h5>{{index}}</h5>
+									<div class="col-xs-3" v-for="(day, index, key) in month">
 										<ul class="list-inline">
 											<li v-for="(item, index, key) in day" :key="key">
 												<div>Dia: {{item.date}}</div>
-												<div>Voto: {{item.vote}}</div>
+												<div>Média Votos: 
+													<span :class="{'text-danger': item.mediaVotes <=1.80, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span>
+												</div>
 											</li>
 										</ul>
 									</div>
 								</div>
-							</li>
-						</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
 	</div> <!-- painelcontrole -->
 </template>
@@ -131,17 +136,17 @@ export default {
 			let month = moment().format('MMMM');
 			let year = moment().format('YYYY');
 
-			for ( let key in data ) {
-				/* key = setores */
-				let title = key;
-				vm.totalVotes[key] = {
-					'data': {
-						'votes': deep(data, key+'.'+year+'.'+month),
-						'month': month,
-						'year': year
-					}
-				}
-			}
+			// for ( let key in data ) {
+			// 	/* key = setores */
+			// 	let title = key;
+			// 	vm.totalVotes[key] = {
+			// 		'data': {
+			// 			'votes': deep(data, key+'.'+year+'.'+month),
+			// 			'month': month,
+			// 			'year': year
+			// 		}
+			// 	}
+			// }
 
 				// for ( let item in data[key] ) {
 				// 	let vote = 0;
