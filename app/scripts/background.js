@@ -17,7 +17,9 @@
 		if ( day == 'Saturday' || day == 'Sunday' || day == 'sábado' || day == 'domingo' ) { 
 			chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
 			return
-		} else if ( date != lastVote.day ) {
+		}
+
+		if ( date != lastVote.day ) {
 			/* verify is valid day of week */
 			localStorage.removeItem('Buddy-Vote');
 			/* localStorage.removeItem('Buddy-Last-Vote'); */
