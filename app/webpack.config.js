@@ -1,14 +1,15 @@
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+var path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 	entry: {
-		filename: './scripts/popup.js',
-		filename: './scripts/background.js'
+		popup: './scripts/popup.js',
+		background: './scripts/background.js'
 	},
 	output: {
-		filename: './dist/popup.min.js',
-		filename: './dist/background.min.js'
+		path: path.join(__dirname, './dist'),
+		filename: '[name].min.js'
 	},
 	module: {
 		loaders: [

@@ -28,7 +28,8 @@
       loading: false,
       gif: [],
       keyDay: '',
-      someoneVote: ''
+      someoneVote: '',
+      message: false
     },
     watch: {
     },
@@ -70,7 +71,6 @@
         .fail(function(xhr) {
           console.log('error', xhr);
         });
-
         vm.weekend = true;
       } else {
         vm.weekend = false;
@@ -86,29 +86,24 @@
         /* verify is valid day of week */
         localStorage.removeItem('Buddy-Vote');
       }
-      /* verify first login on buddy */
-      // this.user = Vue.ls.get('Buddy-Login');
-      // this.user = Cookies.get('Buddy-Login');
-      this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
 
-      // console.log( this.user, this.lastVote )
+      /* verify first login on buddy */
+      this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
 
       if ( this.user === '' || this.user === null || this.user === undefined ) {
         this.firstLogin = true;
       } else {
         this.firstLogin = false;
         this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
-        // this.user = Vue.ls.get('Buddy-Login');     
         this.title = this.user.name;
       }
 
       /* verify last vote on buddy */
-      // this.voted = Vue.ls.get('Buddy-Vote');
-      // this.voted = Cookies.get('Buddy-Vote')
       this.voted = localStorage.getItem('Buddy-Vote');
-      // console.log(this.voted)
       if ( this.voted === '' || this.voted === null || this.voted === undefined ) {
         this.vote = false;
+        /* get custom message */
+        this.getCustomMessage();
       } else {
         this.vote = true;
       }
@@ -164,6 +159,7 @@
           /* call function to update datas with keyday */
           vm.updateDataWithKeyDay(vm.keyDay, voteDay);
           console.log('Key day: '+vm.keyDay);
+          vm.message = '';
           return
         }
         /* call function to create first keyday */
@@ -270,6 +266,25 @@
         }, 800)
       });
 
+    },
+    getCustomMessage: function() {
+      var vm = this;
+      console.log('get message')
+      /* verify custom message */
+
+      let url = config.databaseURL+'/customMessage.json';
+      console.log(url)
+      $.ajax({
+        url: url,
+        method: 'GET',
+        dataType: 'json',
+      })
+      .done(function(data) {
+        vm.message = data[Object.keys(data)];
+      })
+      .fail(function(xhr) {
+        console.log('error', xhr);
+      });
     }
 
   }

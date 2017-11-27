@@ -72,7 +72,7 @@ function resetVote(login, vote) {
 					chrome.windows.create({
 						tabId: tab.id,
 						type: 'popup',
-						height: 450, 
+						height: 500, 
 						width: 550,
 						focused: true
 					});
@@ -95,7 +95,7 @@ function resetVote(login, vote) {
 							chrome.windows.create({
 								tabId: tab.id,
 								type: 'popup',
-								height: 450, 
+								height: 500, 
 								width: 550,
 								focused: true
 							});

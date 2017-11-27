@@ -52,6 +52,19 @@
 	font-size: 12px;
 	color: #cecece;
 }
+.box__message {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+	padding: 5px 10px;
+	margin: 0px -15px;
+	background: #eee;
+	color: #323232;
+}
+.box__message i {
+	margin-right: 5px;
+}
 .box__buttons {
 
 }
