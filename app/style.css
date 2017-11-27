@@ -75,16 +75,13 @@
 	text-decoration: none;
 	color: #6C7A89;
 }
-.box__buttons__btn-vote:hover .box__buttons__btn-vote_img {
-	padding-bottom: 5px;
-}
 .box__buttons__btn-vote_img {
-	width: auto;
-	height: 30px;
 	-webkit-transition: all 0.5s ease-out;
 	-moz-transition: all 0.5s ease-out;
 	-o-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
+	width: auto;
+	height: 50px;
 }
 .box__buttons__btn-vote:hover .box__buttons__btn-vote_text {
 	margin-top: 4px;
