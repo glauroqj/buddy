@@ -101,7 +101,6 @@ export default {
 			this.loading = false;
 			this.btnRefresh = true;
 			console.log('loading localStorage data')
-			this.calculateInfos(this.data)
 		},
 		loadingData: function() {
 			var vm = this;
@@ -111,7 +110,6 @@ export default {
 				/* remove custom mesasge */
 				delete vm.data.customMessage;
 
-				this.calculateInfos(vm.data);
 				localStorage.removeItem('Buddy-Admin-Votes');
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
 				this.btnRefresh = true;
@@ -129,59 +127,7 @@ export default {
 			setTimeout(() => {
 				this.loadingData();
 			}, 800);
-		},
-		calculateInfos: function(data) {
-			var vm = this;
-			moment.locale('pt-br');
-			let month = moment().format('MMMM');
-			let year = moment().format('YYYY');
-
-			// for ( let key in data ) {
-			// 	/* key = setores */
-			// 	let title = key;
-			// 	vm.totalVotes[key] = {
-			// 		'data': {
-			// 			'votes': deep(data, key+'.'+year+'.'+month),
-			// 			'month': month,
-			// 			'year': year
-			// 		}
-			// 	}
-			// }
-
-				// for ( let item in data[key] ) {
-				// 	let vote = 0;
-				// 	let quantVotesDay = 0;
-				// 	let quantVotesMonth = 0;
-				// 	let newValue = 0;
-				// 	/* item = data */
-				// 	// console.log('data: '+item)
-				// 	for ( let subitem in data[key][item][month] ) {
-				// 		/* subitem = key object */
-				// 		newValue = data[key][item];
-				// 		vote = data[key][item].vote[subitem].vote;
-				// 		// console.log('Vote: '+vote)
-				// 		voteTotalDay = vote + voteTotalDay;
-				// 		/* number max of votes */
-				// 		quantVotesDay = Object.keys(data[key][item].vote);
-				// 	}  /*for 3 */ 
-				// 	// console.log('Vote Total: '+voteTotalDay)
-				// 	// console.log('Quantidade de votos: '+quantVotesDay.length )
-
-				// 	// item = item.replace(/-/g, '/');
-				// 	// let month = moment(item, 'DD/MM/YYYY', true).format();
-
-				// 	// console.log(month)
-				// 	/* insert new value on object | newValue */
-				// 	newValue.voteTotalDay = voteTotalDay;
-				// 	newValue.quantVotesDay = quantVotesDay.length;
-				// 	let mediaDay = (voteTotalDay / quantVotesDay.length);
-				// 	newValue.mediaDay = mediaDay.toFixed(1);
-
-				// } /* for 2 */
-
-				// console.log( this.data[key] )
-
-			}
+		}
 		}
 	}
 	</script>

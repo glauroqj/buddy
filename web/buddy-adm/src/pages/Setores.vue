@@ -27,17 +27,16 @@
 							</ul>
 						</div>
 						<div class="setores__dashboard__card">
-							<div class="col-xs-4" v-for="(item, index, key) in selected.data" :index="index" :item="item">
+							<div class="col-xs-4" v-if="selected != ''">
 								<div class="card animated fadeIn">
-									<h3 class="card-header">{{index}}</h3>
+									<h3 class="card-header">{{selected.data.month}} - {{selected.data.date}}</h3>
 									<div class="card-body text-muted">
-										<p>
-											Média do dia: <span class="" 
-											:class="[{'text-success':item.mediaDay >= 4.0}, {'text-muted':item.mediaDay > 3.0}, {'text-danger':item.mediaDay <= 2.5}]">{{item.mediaDay}}</span>
-										</p>
-										<p>
-											Quantidade de votos do dia: {{item.quantVotesDay}}
-										</p>
+										<ul class="list-unstyled">
+											<li>Quantidade: {{selected.data.quantVotes}}</li>
+											<li>Total Votos: {{selected.data.vote}} </li>
+											<li>Média Votos: {{selected.data.mediaVotes}}</li>
+											<li></li>
+										</ul>									
 									</div>
 								</div>
 							</div>
@@ -63,8 +62,7 @@ export default {
 		return {
 			loading: true,
 			dataLocal: {},
-			selected: {},
-			lastMonth: ''
+			selected: ''
 		}
 	},
 	mounted() {
@@ -82,12 +80,13 @@ export default {
 				} 
 				if (user && vm.dataLocal == null ) {
 					vm.$router.push('/painel-de-controle');
-					vm.$toasted.show('Atualizando dados, acesso setores novamente por gentileza!');
+					vm.$toasted.show('Atualizando dados, acesse setores novamente por gentileza!');
 					return
 				} 
 				vm.$router.push('/');
 			}, 1500);
 		});
+
 	},
 	methods: {
 		loadingDataLocal: function() {
@@ -95,15 +94,33 @@ export default {
 			this.loading = false;
 			console.log('loading localStorage data')
 		},
-		findSector: function(key) {
+		findSector: function(title) {
 			var vm = this;
 			// console.log(key)
 			// console.log(this.dataLocal[key])
 			this.selected = {}
 			this.selected = {
-				'title': key,
-				'data': this.dataLocal[key]
+				'title': title
 			}
+			for( let year in this.dataLocal[title] ) {
+
+				for( let month in this.dataLocal[title][year] ) {
+
+					for( let day in this.dataLocal[title][year][month] ) {
+
+						for( let key in this.dataLocal[title][year][month][day] ) {
+							console.log(key)
+							// this.selected = Object.assign({}, this.dataLocal[title][year][month][day][key])
+							this.selected = {
+								'data': this.dataLocal[title][year][month][day][key]
+							}
+						}/* for 4 */
+
+					}/* for 3 */
+
+				}/* for 2 */
+
+			}/* for 1 */
 
 			// let object = this.selected.data;
 			// let monthObj = ['todos'];

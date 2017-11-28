@@ -54,12 +54,13 @@ export default {
           vm.statusNavbar = true;
           vm.statusSidebar = true;
           vm.loading = false;
-        } else {
-          vm.loading = false;
-          vm.statusNavbar = false;
-          vm.statusSidebar = false;
-          vm.$router.push('/');
+          return;
         }
+        /*else*/
+        vm.loading = false;
+        vm.statusNavbar = false;
+        vm.statusSidebar = false;
+        vm.$router.push('/');
       }, 1500);
     });
   },
