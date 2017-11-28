@@ -66,11 +66,7 @@ export default {
 			loading: true,
 			data: {},
 			dataLocal: '',
-			btnRefresh: false,
-			titles: [],
-			media: [],
-			sectors: [],
-			totalVotes: {}
+			btnRefresh: false
 		}
 	},
 	mounted() {
@@ -112,6 +108,9 @@ export default {
 			let url = config.databaseURL+'/.json';
 			vm.$http.get(url).then(response => {
 				vm.data = response.body;
+				/* remove custom mesasge */
+				delete vm.data.customMessage;
+
 				this.calculateInfos(vm.data);
 				localStorage.removeItem('Buddy-Admin-Votes');
 				localStorage.setItem('Buddy-Admin-Votes', JSON.stringify(vm.data) );
