@@ -96,8 +96,6 @@
         this.firstLogin = false;
         this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
         this.title = this.user.name;
-        /* get custom message */
-        this.getCustomMessage();
       }
 
       /* verify last vote on buddy */
@@ -106,6 +104,12 @@
         this.vote = false;
       } else {
         this.vote = true;
+      }
+
+      /* call custom message and show */
+      if (this.firstLogin == false && this.vote == false ) {
+        /* get custom message */
+        this.getCustomMessage();
       }
 
     },
