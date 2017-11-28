@@ -96,6 +96,8 @@
         this.firstLogin = false;
         this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
         this.title = this.user.name;
+        /* get custom message */
+        this.getCustomMessage();
       }
 
       /* verify last vote on buddy */
@@ -128,6 +130,9 @@
         this.user = JSON.parse( localStorage.getItem('Buddy-Login') );
         // console.log(this.user)   
         this.title = this.user.name;
+
+        /* get custom message */
+        this.getCustomMessage();
         return
       }
       this.errorForm = true;
@@ -267,11 +272,8 @@
     },
     getCustomMessage: function() {
       var vm = this;
-      console.log('get message')
       /* verify custom message */
-
       let url = config.databaseURL+'/customMessage.json';
-      console.log(url)
       $.ajax({
         url: url,
         method: 'GET',
@@ -279,6 +281,7 @@
       })
       .done(function(data) {
         vm.message = data[Object.keys(data)];
+        console.log(vm.message)
       })
       .fail(function(xhr) {
         console.log('error', xhr);
