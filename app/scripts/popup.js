@@ -102,8 +102,6 @@
       this.voted = localStorage.getItem('Buddy-Vote');
       if ( this.voted === '' || this.voted === null || this.voted === undefined ) {
         this.vote = false;
-        /* get custom message */
-        this.getCustomMessage();
       } else {
         this.vote = true;
       }
