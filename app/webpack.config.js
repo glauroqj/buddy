@@ -5,7 +5,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
 	entry: {
 		popup: './scripts/popup.js',
-		background: './scripts/background.js'
+		background: './scripts/background.js',
+		components: [
+		'./scripts/components/score-component.js'
+		]
 	},
 	output: {
 		path: path.join(__dirname, './dist'),
