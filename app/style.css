@@ -16,6 +16,24 @@
 .box {
 
 }
+.box__score {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+	border-top: 1px solid #eee;
+}
+.box__score .title {
+	font-weight: 600;
+	color: #F2784B;
+	font-size: 15px;
+}
+.box__score .progress {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+}
 .box__list {
 
 }
