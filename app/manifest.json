@@ -24,8 +24,10 @@
   "content_scripts": [
     {
       "js": [
+        "dist/components.min.js",
         "vendor/jquery.min.js", 
-        "vendor/firebasev4.4.0.js", 
+        "vendor/firebasev4.4.0.js",
+        "vendor/score.min.js", 
         "vendor/vue.min.js", 
         "vendor/moment.js", 
         "dist/popup.min.js"

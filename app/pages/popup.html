@@ -22,7 +22,7 @@
               </div>
             </template>
 
-            <template v-else-if="weekend">
+            <template v-if="weekend">
               <div class="box__weekend">
                 <h4>Tenha um bom fim de semana!</h4>
                 <div class="box__weekend-gif">
@@ -31,7 +31,7 @@
               </div>
             </template>
 
-            <template v-else>
+            <template v-if="!weekend && !loading">
               <div class="box__list" :class="{'w-470': vote == false && firstLogin == false}">
                 <template v-if="firstLogin">
                   <ul class="list-unstyled">
@@ -60,12 +60,12 @@
                           <option>DI</option>
                           <option>Inteligência Comercial & Qualificação</option>
                           <option>Marketing</option>
-                          <option>Op. Online</option>
-                          <option>Op. Local</option>
+                          <option>Op Online</option>
+                          <option>Op Local</option>
                           <option>Risco</option>
                           <option>Finanças</option>
-                          <option>CS - Customer Success</option>
-                          <option>RH - Gente & Gestão</option>
+                          <option>Customer Success</option>
+                          <option>Gente & Gestão</option>
                         </select>
                       </div>
                     </div>
@@ -124,6 +124,9 @@
                   <h4>Obrigado pelo feedback! Lindx! <i class="fa fa-heart" aria-hidden="true"></i></h4>
                   <span class="box__lastvote">Último voto: {{lastVote.day}}</span>
                 </div>
+                <div class="box__score">
+                  <score :callscore="scoreUp" :scorecard="scoreValues"></score>
+                </div>
               </template>
 
               <div class="box__message animated fadeIn" v-if="message">
@@ -139,13 +142,30 @@
   </div>
 </div> <!-- container -->
 </div> <!-- buddy -->
+
+<!-- componentes -->
+<script type="text/x-template" id="score">
+  <div class="animated fadeIn">
+    <div class="title">Score: <span class="text-muted">{{scorecard.score}}</span></div>
+    <p>{{scorecard.status}}</p>
+   <div class="progress">
+    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" :aria-valuenow="scorecard.totalprogress" aria-valuemin="0" aria-valuemax="100" :style="'width: '+scorecard.totalprogress+'%'">
+      <span class="sr-only">{{scorecard.totalprogress}}% Complete</span>
+    </div>
+  </div>
+</div>
+</script>
+<!-- end - componentes -->
+
+<script src="../vendor/vue.min.js"></script>
 <script src="../vendor/firebasev4.4.0.js"></script>
 <script src="../vendor/jquery.min.js"></script>
-<script src="../vendor/vue.min.js"></script>
 <script src="../vendor/moment.js"></script>
 <script src="../vendor/pt-br.js"></script>
+<script src="../vendor/score.min.js"></script>
 
 <!-- <script src="../scripts/popup.js"></script> -->
+<script src="../dist/components.min.js"></script>
 <script src="../dist/popup.min.js"></script>
 
 </body>

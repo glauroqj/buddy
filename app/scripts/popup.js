@@ -29,7 +29,9 @@
       gif: [],
       keyDay: '',
       someoneVote: '',
-      message: false
+      message: false,
+      scoreUp: false,
+      scoreValues: {}
     },
     watch: {
     },
@@ -111,6 +113,37 @@
         /* get custom message */
         this.getCustomMessage();
       }
+
+      /* SCORE */
+      var score = new Score({
+        level: 0,
+        score: 0,
+        persistant:true,
+        levels: [
+        {
+          "checkmark": 0,
+          "status": "Pricipiante",
+          "quote": "continue votando amiga(o)..."
+        },
+        {
+          "checkmark": 10,
+          "status": "Experiente",
+          "quote": "cada vez melhor..."
+        },
+        {
+          "checkmark": 30,
+          "status": "Muito experiente",
+          "quote": "que lindo, você é um sucesso..."
+        },
+        {
+          "checkmark": 50,
+          "status": "King",
+          "quote": "SEM PALAVRAS, VOCÊ ARRASAAAA..."
+        }                       
+        ],
+        callback:function(){}
+      });
+      vm.scoreValues = score.scorecard();
 
     },
     methods: {
