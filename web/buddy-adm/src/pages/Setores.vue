@@ -26,20 +26,25 @@
 								</li>
 							</ul>
 						</div>
+
 						<div class="setores__dashboard__card">
-							<div class="col-xs-4" v-if="selected != ''">
-								<div class="card animated fadeIn">
-									<h3 class="card-header">{{selected.data.month}} - {{selected.data.date}}</h3>
-									<div class="card-body text-muted">
-										<ul class="list-unstyled">
-											<li>Quantidade: {{selected.data.quantVotes}}</li>
-											<li>Total Votos: {{selected.data.vote}} </li>
-											<li>Média Votos: {{selected.data.mediaVotes}}</li>
-											<li></li>
-										</ul>									
+							<div class="row" v-if="selected != ''">
+								<div class="col-xs-4" v-for="item in selected.data">
+									<div class="card animated fadeIn">
+										<h3 class="card-header">{{item.date}}</h3>
+										<div class="card-body text-muted">
+											<ul class="list-unstyled">
+												<li>Mês: {{item.month}}</li>
+												<li>Quantidade: {{item.quantVotes}}</li>
+												<li>Total Votos: {{item.vote}} </li>
+												<li>Média Votos: <span :class="{'text-danger': item.mediaVotes <=1.80, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span></li>
+												<li></li>
+											</ul>									
+										</div>
 									</div>
 								</div>
 							</div>
+
 						</div>
 					</div>
 				</div>
@@ -62,7 +67,7 @@ export default {
 		return {
 			loading: true,
 			dataLocal: {},
-			selected: ''
+			selected: {},
 		}
 	},
 	mounted() {
@@ -99,20 +104,20 @@ export default {
 			// console.log(key)
 			// console.log(this.dataLocal[key])
 			this.selected = {}
-			this.selected = {
-				'title': title
-			}
+			let arrayInfo = [];
 			for( let year in this.dataLocal[title] ) {
 
 				for( let month in this.dataLocal[title][year] ) {
-
+					month = month;
 					for( let day in this.dataLocal[title][year][month] ) {
 
 						for( let key in this.dataLocal[title][year][month][day] ) {
-							console.log(key)
-							// this.selected = Object.assign({}, this.dataLocal[title][year][month][day][key])
+							console.log(key)							
+							arrayInfo.push(this.dataLocal[title][year][month][day][key]);
+							/* CREATE ARRAY AND PUSH INFOS */
 							this.selected = {
-								'data': this.dataLocal[title][year][month][day][key]
+								'title': title,
+								'data': arrayInfo
 							}
 						}/* for 4 */
 
