@@ -146,11 +146,11 @@
 <!-- componentes -->
 <script type="text/x-template" id="score">
   <div class="animated fadeIn">
-    <div class="title">Score: <span class="text-muted">{{scorecard.score}}</span></div>
+    <div class="title">Nível: <span class="text-muted">{{scorecard.level}}</span></div>
     <p>{{scorecard.status}}</p>
    <div class="progress">
-    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" :aria-valuenow="scorecard.totalprogress" aria-valuemin="0" aria-valuemax="100" :style="'width: '+scorecard.totalprogress+'%'">
-      <span class="sr-only">{{scorecard.totalprogress}}% Complete</span>
+    <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" :aria-valuenow="scorecard.levelprogress" aria-valuemin="0" aria-valuemax="100" :style="'width: '+scorecard.levelprogress+'%'">
+      <span class="sr-only">{{scorecard.levelprogress}}% Complete</span>
     </div>
   </div>
 </div>

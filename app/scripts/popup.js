@@ -10,6 +10,36 @@
   };
   firebase.initializeApp(config);
 
+  /* SCORE */
+  const scoreGame = new Score({
+    level: 0,
+    score: 0,
+    persistant:true,
+    levels: [
+    {
+      "checkmark": 0,
+      "status": "Pricipiante",
+      "quote": "continue votando amiga(o)..."
+    },
+    {
+      "checkmark": 10,
+      "status": "Experiente",
+      "quote": "cada vez melhor..."
+    },
+    {
+      "checkmark": 30,
+      "status": "Muito experiente",
+      "quote": "que lindo, você é um sucesso..."
+    },
+    {
+      "checkmark": 50,
+      "status": "King",
+      "quote": "SEM PALAVRAS, VOCÊ ARRASAAAA..."
+    }                       
+    ],
+    callback:function(){}
+  });
+
   new Vue({
     name: 'Buddy',
     el: '#buddy',
@@ -114,36 +144,7 @@
         this.getCustomMessage();
       }
 
-      /* SCORE */
-      var score = new Score({
-        level: 0,
-        score: 0,
-        persistant:true,
-        levels: [
-        {
-          "checkmark": 0,
-          "status": "Pricipiante",
-          "quote": "continue votando amiga(o)..."
-        },
-        {
-          "checkmark": 10,
-          "status": "Experiente",
-          "quote": "cada vez melhor..."
-        },
-        {
-          "checkmark": 30,
-          "status": "Muito experiente",
-          "quote": "que lindo, você é um sucesso..."
-        },
-        {
-          "checkmark": 50,
-          "status": "King",
-          "quote": "SEM PALAVRAS, VOCÊ ARRASAAAA..."
-        }                       
-        ],
-        callback:function(){}
-      });
-      vm.scoreValues = score.scorecard();
+      vm.scoreValues = scoreGame.scorecard();
 
     },
     methods: {
@@ -197,9 +198,9 @@
           vm.keyDay = Object.keys(data);
           vm.someoneVote = data[vm.keyDay];
           /* call function to update datas with keyday */
-          vm.updateDataWithKeyDay(vm.keyDay, voteDay);
           console.log('Key day: '+vm.keyDay);
           vm.message = '';
+          vm.updateDataWithKeyDay(vm.keyDay, voteDay);
           return
         }
         /* call function to create first keyday */
@@ -244,9 +245,10 @@
         localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
         vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
         /* create cookie and localstorage */
-        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
         setTimeout(function() {
           vm.loading = false;
+          vm.callScore();
+          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
         }, 800);
       })
       .fail(function(xhr) {
@@ -294,10 +296,11 @@
         localStorage.setItem( 'Buddy-Last-Vote', JSON.stringify(lastVote) );
         vm.lastVote = JSON.parse( localStorage.getItem('Buddy-Last-Vote') );
         /* create cookie and localstorage */
-        chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
         setTimeout(function() {
           vm.loading = false;
-        }, 800)
+          vm.callScore();
+          chrome.browserAction.setIcon({path: '../images/buddy-20x20.png'});
+        }, 800);
       })
       .fail(function(xhr) {
         console.log('error', xhr);
@@ -323,6 +326,14 @@
       .fail(function(xhr) {
         console.log('error', xhr);
       });
+    },
+    callScore: function() {
+      console.log('callScore')
+      var vm = this;
+      setTimeout(function() {
+        /* give more exp */
+        vm.scoreUp = true;
+      }, 200);
     }
 
   }

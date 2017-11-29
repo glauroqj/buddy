@@ -14,16 +14,26 @@
         },
         data: {
         },
+        watch: {
+            callscore: function() {
+                console.log('watch: '+this.callscore)
+                if(this.callscore) {
+                    this.setScore();
+                }
+            }
+        },
         mounted() {
             var vm = this;
-            setTimeout(function() {
-                console.log(vm.scorecard)
-            }, 850)
         },
         methods: {
             setScore: function() {
-                console.log('score increment')
-                score.increment();
+                var vm = this;
+                var scoreGame = new Score();
+                setTimeout(function() {
+                    console.log('score increment')
+                    scoreGame.increment();
+                    vm.scorecard = scoreGame.scorecard();
+                }, 600);
             }
         }
     });
