@@ -226,7 +226,6 @@
 
       let urlPOST = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
       voteDay = (voteDay).toFixed(2);
-      console.log('voteDay: '+ voteDay)
       let vote = {
         'vote': voteDay,
         'month': month,
