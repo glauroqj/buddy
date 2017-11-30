@@ -18,7 +18,7 @@
     levels: [
     {
       "checkmark": 0,
-      "status": "Pricipiante",
+      "status": "Principiante",
       "quote": "continue votando amiga(o)..."
     },
     {
@@ -27,41 +27,44 @@
       "quote": "cada vez melhor..."
     },
     {
-      "checkmark": 30,
+      "checkmark": 50,
       "status": "Muito experiente",
       "quote": "que lindo, você é um sucesso..."
     },
     {
-      "checkmark": 50,
-      "status": "King",
+      "checkmark": 80,
+      "status": "Knight of Buddy",
       "quote": "SEM PALAVRAS, VOCÊ ARRASAAAA..."
     }                       
     ],
     callback:function(){}
   });
 
+
   new Vue({
     name: 'Buddy',
     el: '#buddy',
-    data: {
-      user: {},
-      title: '',
-      firstLogin: true,
-      weekend: false,
-      vote: false,
-      voted: {},
-      errorForm: false,
-      company: 'Sympla',
-      name: '',
-      sector: '',
-      lastVote: '',
-      loading: false,
-      gif: [],
-      keyDay: '',
-      someoneVote: '',
-      message: false,
-      scoreUp: false,
-      scoreValues: {}
+    data: function() {
+      return {
+        user: {},
+        title: '',
+        firstLogin: true,
+        weekend: false,
+        vote: false,
+        voted: {},
+        errorForm: false,
+        company: 'Sympla',
+        name: '',
+        sector: '',
+        lastVote: '',
+        loading: false,
+        gif: [],
+        keyDay: '',
+        someoneVote: '',
+        message: false,
+        scoreUp: false,
+        scoreValues: {}
+      }
     },
     watch: {
     },
@@ -198,9 +201,9 @@
           vm.keyDay = Object.keys(data);
           vm.someoneVote = data[vm.keyDay];
           /* call function to update datas with keyday */
-          console.log('Key day: '+vm.keyDay);
-          vm.message = '';
+          vm.message = false;
           vm.updateDataWithKeyDay(vm.keyDay, voteDay);
+          console.log('Key day: '+vm.keyDay);
           return
         }
         /* call function to create first keyday */
@@ -222,6 +225,8 @@
       let year = moment().format('YYYY');
 
       let urlPOST = config.databaseURL+'/'+vm.user.sector+'/'+year+'/'+month+'/'+day+'.json';
+      voteDay = (voteDay).toFixed(2);
+      console.log('voteDay: '+ voteDay)
       let vote = {
         'vote': voteDay,
         'month': month,
@@ -338,5 +343,6 @@
 
   }
 });
+
 /*end js*/
 })();

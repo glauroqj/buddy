@@ -10,11 +10,25 @@
 }
 
 .w-470 {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 	min-width: 470px;
+}
+.w-270 {
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
+	min-width: 270px;
 }
 
 .box {
-
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 .box__score {
 	-webkit-transition: all 0.5s ease-out;
@@ -35,7 +49,10 @@
 	transition: all 0.5s ease-out;
 }
 .box__list {
-
+	-webkit-transition: all 0.5s ease-out;
+	-moz-transition: all 0.5s ease-out;
+	-o-transition: all 0.5s ease-out;
+	transition: all 0.5s ease-out;
 }
 .box__list .form-group > div select.form-control.error {
 	border-color: #e74c3c;

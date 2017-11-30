@@ -12,7 +12,10 @@
                 required: true
             }
         },
-        data: {
+        data: function() {
+            return {
+                
+            }
         },
         watch: {
             callscore: function() {
