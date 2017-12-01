@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -27,7 +28,7 @@ module.exports = {
 				]
 			}
 		}
-		]
+		],
 	},
 	plugins: [		
 	new webpack.optimize.UglifyJsPlugin({		
@@ -35,6 +36,17 @@ module.exports = {
 		mangle: false,	
 		compress: { warnings: false },		
 		output: { comments: false }		
-	})		
+	}),
+	new HtmlWebpackPlugin({
+		filename: 'popup.html',
+		template: './pages/popup.html',
+		minify: {
+			collapseWhitespace: true,
+			removeComments: true,
+			removeRedundantAttributes: true,
+			removeScriptTypeAttributes: true,
+			removeStyleLinkTypeAttributes: true
+		}
+	})	
 	]
-}
+};
