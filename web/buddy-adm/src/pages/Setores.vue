@@ -37,7 +37,7 @@
 												<li>Mês: {{item.month}}</li>
 												<li>Quantidade: {{item.quantVotes}}</li>
 												<li>Total Votos: {{item.vote}} </li>
-												<li>Média Votos: <span :class="{'text-danger': item.mediaVotes <=1.80, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span></li>
+												<li>Média Votos: <span :class="{'text-danger': item.mediaVotes <=2.30, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span></li>
 												<li></li>
 											</ul>									
 										</div>

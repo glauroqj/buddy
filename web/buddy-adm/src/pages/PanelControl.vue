@@ -33,7 +33,7 @@
 											<li v-for="(item, index, key) in day" :key="key">
 												<div>Dia: {{item.date}}</div>
 												<div>Média Votos: 
-													<span :class="{'text-danger': item.mediaVotes <=1.80, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span>
+													<span :class="{'text-danger': item.mediaVotes <=2.30, 'text-success': item.mediaVotes >= 4.00}">{{item.mediaVotes}}</span>
 												</div>
 											</li>
 										</ul>
